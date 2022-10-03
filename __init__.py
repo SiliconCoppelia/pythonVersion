@@ -28,11 +28,15 @@ class Coppelia():
 	def greet(self):
 		print(greetings)
 
+	def ethics(self):
+		# ...
 
 # Coppélia object initilaization
 coppélia = Coppelia()
 # Ethics object initialization
 ethics = Ethics(random())
 
+
+coppélia.greet()
 ethicsResponse.append(ethcis.getAssessment())
 ethicsResponse.append()
