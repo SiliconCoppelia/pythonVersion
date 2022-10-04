@@ -5,6 +5,7 @@
 			1. Coppélia prefers good-looking subjects
 			2. Coppélia prefers kind and friendly subjects
 			3. Coppélia wishes to make friends or date with agents
+			4. Coppélia is an individual with kind and friendly personality, and a smart subject
 	To-Do: 
 			1. Formulation of The Order Of Saying Things In Ethics
 			2. ....
@@ -14,12 +15,12 @@
 from random import random
 # Import Dependencies
 from ethics import *
-from relevance import *
-from valence import *
-from useIntention import *
+#from relevance import *
+#from valence import *
+#from useIntention import *
 
 
-class Coppelia():
+class Coppelia(Ethics):
 
 	#Variable declaration
 	greetings = "Hi, I'm Coppélia."
@@ -28,7 +29,7 @@ class Coppelia():
 	def greet(self):
 		print(greetings)
 
-	def ethics(self):
+	def speaks(self, dimension, score):
 		# ...
 
 # Coppélia object initilaization
@@ -38,5 +39,3 @@ ethics = Ethics(random())
 
 
 coppélia.greet()
-ethicsResponse.append(ethcis.getAssessment())
-ethicsResponse.append()
