@@ -4,9 +4,9 @@
   @Description:
 
 '''
-from readFromTxt import get_line_context;
-from readFromTxt import get_line_num;
-from readFromTxt import get_random_line;
+from readFromTxt import get_line_context
+from readFromTxt import get_line_num
+from readFromTxt import get_random_line
 
 class Satisfaction:
 
