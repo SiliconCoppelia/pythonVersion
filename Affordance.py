@@ -1,5 +1,17 @@
 import Aesthetics as aest
 from enum import Enum
+import pandas as pd
+
+sentNeg: str = r"/sentences/affordance/Affordance/AffordanceNegstream.xlsx"
+sentPos: str = r"/sentences/affordance/Affordance/AffordancePosstream.xlsx"
+
+
+class FileEngine:
+
+    def returnSent(self) -> tuple:
+        negative: pd.DataFrame = pd.read_excel(sentNeg)
+        postive: pd.DataFrame = pd.read_excel(sentPos)
+        return (negative, postive)
 
 
 class StayWith(Enum):
@@ -19,9 +31,11 @@ class Affordance:
 
     inputIn: float
     appear: tuple
+    sentences: tuple
 
     def __init__(self, outerln: float) -> None:
         self.inputIn = outerln
+        self.sentences = FileEngine().returnSent()
         return
 
     def undefined(self) -> None:
@@ -33,4 +47,5 @@ class Affordance:
 
     def getAffor(self) -> tuple:
         self.undefined()
+        if self.appear[1] < 3: return self.sentences[0]
         return tuple([self.appear[1], self.inputIn])
