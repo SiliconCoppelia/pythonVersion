@@ -1,12 +1,14 @@
 # Import libraries
-# For random score of ethics
-from random import random
 """
 	For random draw in the pool of corpus
 	Reference of random int inclusive:
 	https://stackoverflow.com/questions/3996904/generate-random-integers-between-0-and-9
 """
 from random import randrange
+# Import Classes
+from relevance import *
+from valence import *
+from useIntention import *
 
 """
 LINES_OF_POS_LOW_SCORE_OBSERVATION = 16
@@ -20,7 +22,7 @@ LINES_OF_POS_HIGH_SCORE_ASSESSMENT = 25
 TOTAL_LINES_OF_POS_ASSESSMENT = LINES_OF_POS_LOW_SCORE_ASSESSMENT + LINES_OF_POS_MID_SCORE_ASSESSMENT + LINES_OF_POS_HIGH_SCORE_ASSESSMENT
 """
 
-class Ethics:
+class Ethics():
 
 	"""
 		Reference of initializing multiple list: 
@@ -28,44 +30,60 @@ class Ethics:
 	"""
 	pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
 
-	def loadCorpus(self):
-		self.pos_obs_low = open("./eth_pos_low.txt", "r").readlines()
-		self.pos_obs_mid = open("./eth_pos_mid.txt", "r").readlines()
-		self.pos_obs_high = open("./eth_pos_high.txt", "r").readlines()
-		self.pos_asses_low = open("./eth_pos_asses_low.txt", "r").readlines()
-		self.pos_asses_mid = open("./eth_pos_asses_mid.txt", "r").readlines()
-		self.pos_asses_high = open("./eth_pos_asses_high.txt", "r").readlines()
+	def __init__(self, score, relevance, valence):
+		self.score = score
+		self.relevance = relevance
+		self.valence = valence
 
-	def getObservation(self, ethics):
+	def getEthRel(self):
+		return Relevance(self.relevance, "ethics")
+
+	def getEthVal(self):
+		return Valence(self.valence, "ethics")
+
+	def getEthUseInten(self):
+		return UseIntention()
+
+	"""
+	def loadCorpus(self):
+		self.pos_obs_low = open("./sentences/ethics/eth_pos_low.txt", "r").readlines()
+		self.pos_obs_mid = open("./sentences/ethics/eth_pos_mid.txt", "r").readlines()
+		self.pos_obs_high = open("./sentences/ethics/eth_pos_high.txt", "r").readlines()
+		self.pos_asses_low = open("./sentences/ethics/eth_pos_asses_low.txt", "r").readlines()
+		self.pos_asses_mid = open("./sentences/ethics/eth_pos_asses_mid.txt", "r").readlines()
+		self.pos_asses_high = open("./sentences/ethics/eth_pos_asses_high.txt", "r").readlines()
+	"""
+
+	def getEthObservation(self):
 		# Load corpus if all variants in one dimension are used up
 		if len(self.pos_obs_low) == 0: 
-			self.pos_obs_low = open("./eth_pos_low.txt", "r").readlines()
-		elif len(self.pos_obs_mid) == 0:
-			self.pos_obs_mid = open("./eth_pos_mid.txt", "r").readlines()
-		elif len(self.pos_obs_high) == 0:
-			self.pos_obs_high = open("./eth_pos_high.txt", "r").readlines()
+			self.pos_obs_low = open("./sentences/ethics/eth_pos_low.txt", "r").readlines()
+		if len(self.pos_obs_mid) == 0:
+			self.pos_obs_mid = open("./sentences/ethics/eth_pos_mid.txt", "r").readlines()
+		if len(self.pos_obs_high) == 0:
+			self.pos_obs_high = open("./sentences/ethics/eth_pos_high.txt", "r").readlines()
 
 		# Get Observation
-		if ethics < 0.34:
+		if self.score < 0.34:
 			return self.pos_obs_low.pop(randrange(len(self.pos_obs_low))).replace("\n", "")
-		elif ethics >= 0.34 and ethics < 0.67:
+		elif self.score >= 0.34 and self.score < 0.67:
 			return self.pos_obs_mid.pop(randrange(len(self.pos_obs_mid))).replace("\n", "")
 		else:
 			return self.pos_obs_high.pop(randrange(len(self.pos_obs_high))).replace("\n", "")
 
-	def getAssessment(self, ethics):
+	def getEthAssessment(self):
 		# Load corpus if all variants in one dimension are used up
 		if len(self.pos_asses_low) == 0:
-			self.pos_asses_low = open("./eth_pos_asses_low.txt", "r").readlines()
-		elif len(self.pos_asses_mid) == 0:
-			self.pos_asses_mid = open("./eth_pos_asses_mid.txt", "r").readlines()
-		elif len(self.pos_asses_high) == 0:
-			self.pos_asses_high = open("./eth_pos_asses_high.txt", "r").readlines()
+			self.pos_asses_low = open("./sentences/ethics/eth_pos_asses_low.txt", "r").readlines()
+		if len(self.pos_asses_mid) == 0:
+			self.pos_asses_mid = open("./sentences/ethics/eth_pos_asses_mid.txt", "r").readlines()
+		if len(self.pos_asses_high) == 0:
+			self.pos_asses_high = open("./sentences/ethics/eth_pos_asses_high.txt", "r").readlines()
 
 		# Get Assessment
-		if ethics < 0.34:
+		if self.score < 0.34:
 			return self.pos_asses_low.pop(randrange(len(self.pos_asses_low))).replace("\n", "")
-		elif ethics >= 0.34 and ethics < 0.67:
+		elif self.score >= 0.34 and self.score < 0.67:
 			return self.pos_asses_mid.pop(randrange(len(self.pos_asses_mid))).replace("\n", "")
 		else:
 			return self.pos_asses_high.pop(randrange(len(self.pos_asses_high))).replace("\n", "")
@@ -75,18 +93,31 @@ class Ethics:
 		https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
 	"""
 
-eth = Ethics()
-print(eth.getObservation(0))
-print(eth.getAssessment(0))
 
-print(eth.getObservation(0.32))
-print(eth.getAssessment(0.32))
+"""
+eth = Ethics(0.5, 0.5)
+#eth.loadCorpus()
+print(eth.getEthObservation(0))
+print(eth.getEthAssessment(0))
 
-print(eth.getObservation(0.532))
-print(eth.getAssessment(0.532))
+print(eth.getEthObservation(0.32))
+print(eth.getEthAssessment(0.32))
 
-print(eth.getObservation(0.89))
-print(eth.getAssessment(0.89))
+print(eth.getEthObservation(0.532))
+print(eth.getEthAssessment(0.532))
+
+print(eth.getEthObservation(0.89))
+print(eth.getEthAssessment(0.89))
+"""
+
+
+"""
+	Ethics Object update log:
+		v 1.1 created on 4th Oct
+		v 1.2 created on 13th Oct
+			- Seperation of Positive sentences into different files
+			- Finalize Ethics Positive model
+"""
 
 
 
