@@ -1,0 +1,49 @@
+Relevance
+For being friends, I think that having certain skills is not quite irrelevant, right?
+For making friends, it isn’t a trivial matter that people are clever, now is it?
+I am convinced that foolishness is of no value to a friendship.
+
+AffordanceNeg
+It seems that was not a very handy thing to do.
+You made a silly move, I suppose.
+You did a very stupid thing there.
+
+Relevance
+For being friends, I think that having certain skills is not quite irrelevant, right?
+For making friends, it isn’t a trivial matter that people are clever, now is it?
+I am convinced that foolishness is of no value to a friendship.
+
+Valence
+That you lack some skills makes it a little harder for us to become friends one day.
+That you are kind of silly makes me gloomy about a future friendship.
+In view of your basic lack of intelligence, I don’t expect much about us being friends.
+
+UI
+Maybe one day I’ll call upon you but don’t count on it too much.
+Thanks very much but your help is not needed.
+I know it’s rude but I have no use for you.
+
+Involvement
+In sum, I sympathize with you – a little.
+However, you somehow move me that way.
+I fully empathize with you.
+
+Distance
+Still, although not too bad, I have a hard time warming up to you as well.
+But let’s not get ahead of ourselves: It’s good if we maintain some professional distance.
+However, please, get out of my way. However, please, get out of my sight.
+
+DissimilarityInUI
+We have little in common so you may not be able to help me.
+We hardly share anything between us so I think you can hardly be of help.
+We are so different, you and I: That too makes you useless to me.
+
+DissimilarityInInvolvement
+At the same time, I feel sorry that we share so little: It reduces our possibilities to be friends.
+We also have our dissimilarities, which makes me pity you, I feel.
+Yet, there is hardly anything between us because we are so very unalike.
+
+DissimilarityInDistance
+We are not the same, I know, and you better not come closer but I also see myself in you somehow.
+It would be good if you stay away but some things I recognize in you that make me a little more mild-tempered.
+Although you better leave now, we share some characteristics as well I must admit.
