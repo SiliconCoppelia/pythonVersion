@@ -52,7 +52,7 @@ class Relevance:
     #     self.n_mid = open(corpus_n_mid, "r").readlines()
     #     self.n_high = open(corpus_n_high, "r").readlines()
 
-    def getrelevance(self):
+    def getRelevance(self):
         if len(self.p_low) == 0: 
             self.p_low = open("sentences/"+self.select_factor_dic()+"relevance/p_low.txt", "r").readlines()
         if len(self.p_mid) == 0:

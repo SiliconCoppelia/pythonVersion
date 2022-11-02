@@ -12,6 +12,8 @@ class UseIntention:
 
     use_intention = 0
     input_factor = ""
+
+    p_low, p_mid, p_high, n_low, n_mid, n_high = ([] for i in range(6))
     
     # def __init__(self, use_intention, input_factor):
     #     self.use_intention = use_intention
@@ -29,31 +31,43 @@ class UseIntention:
         elif(self.input_factor=="aesthetics"): return "aesthetics/"
         else: return "epistemics/"
 
-    def select_sentence_file(self):
-        if(self.use_intention<=0.15): return "n_high"
-        elif(self.use_intention<0.35): return "n_mid"
-        elif(self.use_intention<0.5): return "n_low"
-        elif(self.use_intention<0.65): return "p_low"
-        elif(self.use_intention<0.85): return "p_mid"
-        else: return "p_high"
+    # def select_sentence_file(self):
+    #     if(self.use_intention<=0.15): return "n_high"
+    #     elif(self.use_intention<0.35): return "n_mid"
+    #     elif(self.use_intention<0.5): return "n_low"
+    #     elif(self.use_intention<0.65): return "p_low"
+    #     elif(self.use_intention<0.85): return "p_mid"
+    #     else: return "p_high"
 
-    def loadCorpus(self):
-        corpus_p_low="sentences/"+self.select_factor_dic()+"use_intention/p_low.txt"
-        corpus_n_low="sentences/"+self.select_factor_dic()+"use_intention/n_low.txt"
-        corpus_p_mid="sentences/"+self.select_factor_dic()+"use_intention/p_mid.txt"
-        corpus_n_mid="sentences/"+self.select_factor_dic()+"use_intention/n_mid.txt"
-        corpus_p_high="sentences/"+self.select_factor_dic()+"use_intention/p_high.txt"
-        corpus_n_high="sentences/"+self.select_factor_dic()+"use_intention/n_high.txt"
-        self.p_low = open(corpus_p_low, "r").readlines()
-        self.p_mid = open(corpus_p_mid, "r").readlines()
-        self.p_high = open(corpus_p_high, "r").readlines()
-        self.n_low = open(corpus_n_low, "r").readlines()
-        self.n_mid = open(corpus_n_mid, "r").readlines()
-        self.n_high = open(corpus_n_high, "r").readlines()
+    # def loadCorpus(self):
+    #     corpus_p_low="sentences/"+self.select_factor_dic()+"use_intention/p_low.txt"
+    #     corpus_n_low="sentences/"+self.select_factor_dic()+"use_intention/n_low.txt"
+    #     corpus_p_mid="sentences/"+self.select_factor_dic()+"use_intention/p_mid.txt"
+    #     corpus_n_mid="sentences/"+self.select_factor_dic()+"use_intention/n_mid.txt"
+    #     corpus_p_high="sentences/"+self.select_factor_dic()+"use_intention/p_high.txt"
+    #     corpus_n_high="sentences/"+self.select_factor_dic()+"use_intention/n_high.txt"
+    #     self.p_low = open(corpus_p_low, "r").readlines()
+    #     self.p_mid = open(corpus_p_mid, "r").readlines()
+    #     self.p_high = open(corpus_p_high, "r").readlines()
+    #     self.n_low = open(corpus_n_low, "r").readlines()
+    #     self.n_mid = open(corpus_n_mid, "r").readlines()
+    #     self.n_high = open(corpus_n_high, "r").readlines()
 
-    def getuse_intention(self):
-        if len(self.p_low) == 0 or len(self.p_mid) == 0 or len(self.p_high) == 0 or len(self.n_low) == 0 or len(self.n_mid) == 0 or len(self.n_high) == 0:
-            self.loadCorpus()
+    def getUseIntention(self):
+        if len(self.p_low) == 0: 
+            self.p_low = open("sentences/"+self.select_factor_dic()+"use_intention/p_low.txt", "r").readlines()
+        if len(self.p_mid) == 0:
+            self.p_mid = open("sentences/"+self.select_factor_dic()+"use_intention/p_mid.txt", "r").readlines()
+        if len(self.p_high) == 0:
+            self.p_high = open("sentences/"+self.select_factor_dic()+"use_intention/p_high.txt", "r").readlines()
+        if len(self.n_low) == 0: 
+            self.n_low = open("sentences/"+self.select_factor_dic()+"use_intention/n_low.txt", "r").readlines()
+        if len(self.n_mid) == 0:
+            self.n_mid = open("sentences/"+self.select_factor_dic()+"use_intention/n_mid.txt", "r").readlines()
+        if len(self.n_high) == 0:
+            self.n_high = open("sentences/"+self.select_factor_dic()+"use_intention/n_high.txt", "r").readlines()
+
+        
         if self.use_intention < 0.15:
             return self.n_high.pop(randrange(len(self.n_high))).replace("\n", "")
         elif self.use_intention < 0.35:
