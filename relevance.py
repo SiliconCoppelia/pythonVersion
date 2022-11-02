@@ -8,10 +8,19 @@ from random import random
 from random import randrange
 
 class Relevance:
+
+    relevance = 0
+    input_factor = ""
     
-    def __init__(self, relevance, input_factor):
+    # def __init__(self, relevance, input_factor):
+    #     self.relevance = relevance
+    #     self.input_factor=input_factor
+
+    def setRelevance(self, relevance):
         self.relevance = relevance
-        self.input_factor=input_factor
+
+    def setInputFactor(self, input_factor):
+        self.input_factor = input_factor
     
     def select_factor_dic(self):
         if(self.input_factor=="ethics"): return "ethics/"

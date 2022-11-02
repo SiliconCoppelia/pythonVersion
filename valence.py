@@ -8,10 +8,20 @@ from random import random
 from random import randrange
 
 class Valence:
+
+
+    valence = 0
+    input_factor = ""
     
-    def __init__(self, valence, input_factor):
+    # def __init__(self, valence, input_factor):
+    #     self.valence = valence
+    #     self.input_factor=input_factor
+
+    def setValence(self, valence):
         self.valence = valence
-        self.input_factor=input_factor
+
+    def setInputFactor(self, input_factor):
+        self.input_factor = input_factor
     
     def select_factor_dic(self):
         if(self.input_factor=="ethics"): return "ethics/"
@@ -56,6 +66,8 @@ class Valence:
             return self.p_mid.pop(randrange(len(self.p_mid))).replace("\n", "")
         else:
             return self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
+
+
 # from readFromTxt import get_line_context;
 # from readFromTxt import get_line_num;
 # from readFromTxt import get_random_line;

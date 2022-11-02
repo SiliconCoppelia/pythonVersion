@@ -9,10 +9,19 @@ from random import random
 from random import randrange
 
 class UseIntention:
+
+    use_intention = 0
+    input_factor = ""
     
-    def __init__(self, use_intention, input_factor):
+    # def __init__(self, use_intention, input_factor):
+    #     self.use_intention = use_intention
+    #     self.input_factor=input_factor
+
+    def setUseIntention(self, use_intention):
         self.use_intention = use_intention
-        self.input_factor=input_factor
+
+    def setInputFactor(self, input_factor):
+        self.input_factor = input_factor
     
     def select_factor_dic(self):
         if(self.input_factor=="ethics"): return "ethics/"
