@@ -12,50 +12,82 @@
 """
 
 # Import Dependencies
+# https://stackoverflow.com/questions/43023970/builtin-function-or-method-object-has-no-attribute-randrange
 import random as rand
 # Import Classes
 from ethics import *
+from Affordance import *
 
 
 class Coppelia():
 
-	#Variable declaration
+	ethics = Ethics()
+	affordance = Affordance()
+
 	greetings = "Hi, I'm Coppélia."
 	goal = "I want to be friends with you"
 
-	def greet(self):
+	def __init__(self):
 		print(self.greetings)
-		print(self.goal)
 
-	def getEthicsSentences(self, score):
+	def setEthics(self, score):
+		self.ethics.setEthics(score)
 
-		# Reference of random fractions between two values: 
-		# https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
-		if score > 0.66:
-			eth = Ethics(score, rand.uniform(0.67, 1), rand.uniform(0.67, 1))
-		elif score <= 0.66 and score > 0.33:
-			eth = Ethics(score, rand.uniform(0.67, 1), rand.uniform(0.34, 0.67))
+	def ethicsModeling(self):
+		self.ethics.__class__.relevance.setRelevance(rand.uniform(0.67, 1))
+		self.ethics.__class__.relevance.setInputFactor("ethics")
+		self.ethics.__class__.valence.setInputFactor("ethics")
+		self.ethics.__class__.useIntention.setInputFactor("ethics")
+
+		if self.ethics.getEthics() > 0.66:
+			self.ethics.__class__.valence.setValence(rand.uniform(0.67, 1))
+			self.ethics.__class__.useIntention.setUseIntention(rand.uniform(0.67, 1))
+		elif self.ethics.getEthics() <= 0.66 and self.ethics.getEthics() > 0.33:
+			self.ethics.__class__.valence.setValence(rand.uniform(0.34, 0.67))
+			self.ethics.__class__.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
 		else:
-			eth = Ethics(score, rand.uniform(0.67, 1), rand.uniform(0, 0.33))
-		return eth
+			self.ethics.__class__.valence.setValence(rand.uniform(0, 0.33))
+			self.ethics.__class__.useIntention.setUseIntention(rand.uniform(0, 0.33))
 
-# Coppélia object initilaization
+	def speaksEthic(self):
+		self.ethicsModeling()
+		print(self.goal)
+		print(self.ethics.getPosEthObservation())
+		print(self.ethics.getPosEthAssessment())
+		print(self.ethics.__class__.relevance.getRelevance())
+		print(self.ethics.__class__.valence.getValence())
+		print(self.ethics.__class__.useIntention.getUseIntention())
+
+	# Reference of random fractions between two values: 
+	# https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
+
 coppelia = Coppelia()
-coppelia.greet()
+coppelia.setEthics(rand.uniform(0, 1))
+coppelia.speaksEthic()
 
-eth = coppelia.getEthicsSentences(rand.uniform(0, 1))
-eth_rel = eth.getEthRel()
-eth_val = eth.getEthVal()
-eth_rel.loadCorpus()
-eth_val.loadCorpus()
-print(eth.getEthObservation())
-print(eth.getEthAssessment())
-print(eth_rel.getrelevance())
-print(eth_val.getvalence())
+# #Variable declaration
+# greetings = "Hi, I'm Coppélia."
+# goal = "I want to be friends with you"
 
+# print(greetings + "\n" + goal)
+# ethics = Ethics()
 
-"""
-rel = Relevance(0.7389, "ethics")
-rel.loadCorpus()
-print(rel.getrelevance())
-"""
+# #---------------POSITIVE---------------#
+
+# ethics.setEthics(rand.uniform(0, 1))
+# print(ethics.getPosEthObservation())
+# print(ethics.getPosEthAssessment())
+
+# ethics.__class__.relevance.setRelevance(rand.uniform(0.67, 1))
+# ethics.__class__.relevance.setInputFactor("ethics")
+# ethics.__class__.valence.setInputFactor("ethics")
+
+# if ethics.getEthics() > 0.66:
+# 	ethics.__class__.valence.setValence(rand.uniform(0.67, 1))
+# elif ethics.getEthics() <= 0.66 and ethics.getEthics() > 0.33:
+# 	ethics.__class__.valence.setValence(rand.uniform(0.34, 0.67))
+# else:
+# 	ethics.__class__.valence.setValence(rand.uniform(0, 0.33))
+
+# print(ethics.__class__.relevance.getrelevance())
+# print(ethics.__class__.valence.getvalence())
