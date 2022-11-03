@@ -1,3 +1,4 @@
+AffordancePos
 You seem to have some skills.
 I think you are quite a clever person.
 I think you are very intelligent.

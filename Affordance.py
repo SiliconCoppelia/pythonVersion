@@ -2,29 +2,31 @@ import Aesthetics as aest
 from enum import Enum
 import pandas as pd
 
-sentNeg: str = r"./sentences/affordance/Affordance/AffordanceNegstream."
-sentPos: str = r"./sentences/affordance/Affordance/AffordancePosstream."
+sentNeg: str = r"./sentences/affordance/Affordance/AffordanceNegstream"
+sentPos: str = r"./sentences/affordance/Affordance/AffordancePosstream"
 
+suffixNeg: list = ['AffordanceNegObser', 'AffordanceNegAss', 'Relevance', 'Valence', 'UI', 'Involvement', 'Distance', 'DissimilarityInUI', 'DissimilarityInInvolvement', 'DissimilarityInDistance']
+suffixPos: list = ['AffordancePosObser', 'AffordancePos', 'Relevance', 'Valence', 'UI', 'Involvement', 'Distance', 'SimilarityInUI', 'SimilarityInInvolvement', 'SimilarityInDistance']
 
 class FileEngine:
 
     def ExcelreturnSent(self) -> tuple:
-        negative: pd.DataFrame = pd.read_excel(sentNeg + "xlsx")
-        postive: pd.DataFrame = pd.read_excel(sentPos + "xlsx")
+        negative: pd.DataFrame = pd.read_excel(sentNeg + ".xlsx")
+        postive: pd.DataFrame = pd.read_excel(sentPos + ".xlsx")
         return (negative, postive)
 
-    def TxtreturnSent(self) -> pd.DataFrame:
+    def TxtreturnSent(self) -> tuple:
         """pd.read_fwf(sentNeg)"""
-        alltheway: list = []
-        section: list = []
-        with open(sentNeg+"txt", "r") as fp:
-            lines = fp.readline()
-            for line in lines:
-                if line.isspace():
-                    alltheway.append(section)
-                    section.clear()
-                else: section.append(line)
-        return pd.DataFrame(alltheway)
+        pos: list = [pd.read_csv(sentPos + "/" + path + ".txt", header=None, sep='/') for path in suffixPos]
+        neg: list = [pd.read_csv(sentNeg + "/" + path + ".txt", header=None, sep='/') for path in suffixNeg]
+        pos = pd.concat(pos, axis=1)
+        pos.columns = pos.iloc[0]
+        pos = pos[1:]
+        neg = pd.concat(neg, axis=1)
+        neg.columns = neg.iloc[0]
+        neg = neg[1:]
+        return (neg, pos)
+
 
 class StayWith(Enum):
     SKILLFUL: tuple = [5, [num / 100 for num in range(83, 100, 1)]]
@@ -54,7 +56,7 @@ class Affordance:
         temp: float = float("{:.2f}".format(self.inputIn))
         for iterator in StayWith:
             if temp in iterator.value[1]:
-                self.appear = iterator.value()
+                self.appear = iterator.value
                 break
 
     """
@@ -73,10 +75,18 @@ class Affordance:
             return self.sentences[1].iloc[self.appear[0] - 3]
 
 if __name__ == "__main__":
-    jack = Affordance(0.87)
+    jack = Affordance(0.35)
     print(jack.getAffor())
 
-def tempSpliter():
-    file: pd.DataFrame = pd.read_excel(r"D:\Code Working Area\Python\SiliconCoppelia\pythonVersion\sentences\affordance\Affordance\AffordanceNegstream.xlsx")
-    for name, val in file.iteritems():
-        pd.to_csv(r"./sentences/affordance/Affordance/AffordanceNeg/" + name + ".txt")
+"""
+alltheway: list = []
+section: list = []
+with open(sentNeg+"txt", "r") as fp:
+    lines = fp.readline()
+    for line in lines:
+        if line.isspace():
+            alltheway.append(section)
+            section.clear()
+        else: section.append(line)
+return pd.DataFrame(alltheway)
+"""
