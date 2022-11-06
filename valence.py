@@ -47,11 +47,11 @@ class Valence:
         
     def getNegValence(self):
         if len(self.n_low) == 0: 
-            self.p_low = open("sentences/"+self.select_factor_dic()+"valence/n_low.txt", "r").readlines()
+            self.n_low = open("sentences/"+self.select_factor_dic()+"valence/n_low.txt", "r").readlines()
         if len(self.n_mid) == 0:
-            self.p_mid = open("sentences/"+self.select_factor_dic()+"valence/n_mid.txt", "r").readlines()
+            self.n_mid = open("sentences/"+self.select_factor_dic()+"valence/n_mid.txt", "r").readlines()
         if len(self.n_high) == 0:
-            self.p_high = open("sentences/"+self.select_factor_dic()+"valence/n_high.txt", "r").readlines()
+            self.n_high = open("sentences/"+self.select_factor_dic()+"valence/n_high.txt", "r").readlines()
 
         if self.valence < 0.34:
             return self.n_low.pop(randrange(len(self.n_low))).replace("\n", "")
