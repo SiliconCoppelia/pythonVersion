@@ -39,7 +39,6 @@ class Relevance:
         if len(self.p_high) == 0:
             self.p_high = open("sentences/"+self.select_factor_dic()+"relevance/p_high.txt", "r").readlines()
 
-		# Get Observation
         if self.relevance < 0.34:
             return self.p_low.pop(randrange(len(self.p_low))).replace("\n", "")
         elif self.relevance < 0.67:
@@ -56,7 +55,6 @@ class Relevance:
         if len(self.n_high) == 0:
             self.n_high = open("sentences/"+self.select_factor_dic()+"relevance/n_high.txt", "r").readlines()
 
-		# Get Observation
         if self.relevance < 0.34:
             return self.n_high.pop(randrange(len(self.n_low))).replace("\n", "")
         elif self.relevance < 0.67:

@@ -9,12 +9,12 @@ class Appearance(Enum):
     noted: Enum.auto() will generate a unique number. I planing use this to present
     position of corresponding sentence in database
     """
-    BEAUTY: list = [5, [num / 100 for num in range(83, 100, 1)]]
-    PRETTY: list = [4, [num / 100 for num in range(67, 83, 1)]]
-    ORDINARY: list = [3, [num / 100 for num in range(50, 67, 1)]]
-    BLEMISH: list = [2, [num / 100 for num in range(33, 50, 1)]]
-    UGLY: list = [1, [num / 100 for num in range(17, 33, 1)]]
-    APPALLING: list = [0, [num / 100 for num in range(0, 17, 1)]]
+    BEAUTY: list = [5, [num / 100 for num in range(67, 100, 1)]]
+    PRETTY: list = [4, [num / 100 for num in range(34, 67, 1)]]
+    ORDINARY: list = [3, [num / 100 for num in range(0, 34, 1)]]
+    BLEMISH: list = [2, [(-1)*(num / 100) for num in range(0, 34, 1)]]
+    UGLY: list = [1, [(-1)*(num / 100) for num in range(34, 67, 1)]]
+    APPALLING: list = [0, [(-1)*(num / 100) for num in range(67, 100, 1)]]
 
 
 class Aesthetics:
@@ -44,7 +44,7 @@ class Aesthetics:
 
     def getAest(self) -> tuple:
         self.judge()
-        # a print statement should presented here
+        # a print statement should present here
         return tuple([self.appear[0], self.accuracy])
 
 

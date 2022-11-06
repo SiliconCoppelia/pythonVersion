@@ -58,7 +58,6 @@ class UseIntention:
         if len(self.n_high) == 0:
             self.n_high = open("sentences/use_intention/n_high.txt", "r").readlines()
 
-		# Get Observation
         if self.use_intention < 0.34:
             return self.n_low.pop(randrange(len(self.n_low))).replace("\n", "")
         elif self.use_intention < 0.67:
