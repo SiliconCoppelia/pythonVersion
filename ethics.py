@@ -4,6 +4,7 @@
 	Reference of random int inclusive:
 	https://stackoverflow.com/questions/3996904/generate-random-integers-between-0-and-9
 """
+import random as rand
 from random import randrange
 # Import Classes
 from relevance import *
@@ -20,6 +21,10 @@ class Ethics():
 	relevance = Relevance()
 	valence = Valence()
 	useIntention = UseIntention()
+	# similarity = Similarity()
+	# disSimilarity = Dissimilarity()
+	# involvement = Involvement()
+	# disatance = Distance()
 
 	pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
 	neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
@@ -27,8 +32,8 @@ class Ethics():
 	def setEthics(self, ethics):
 		self.ethics = ethics
 
-	def getEthics(self):
-		return self.ethics
+	# def getEthics(self):
+	# 	return self.ethics
 
 	#-----------------------------POSITIVE-----------------------------#
 
@@ -108,18 +113,59 @@ class Ethics():
 	"""
 
 
-# eth = Ethics(0.5, 0.5)
-# print(eth.getEthObservation(0))
-# print(eth.getEthAssessment(0))
+	def ethicsModeling(self, posOrNeg):
 
-# print(eth.getEthObservation(0.32))
-# print(eth.getEthAssessment(0.32))
+		self.relevance.setInputFactor("ethics")
+		self.valence.setInputFactor("ethics")
+		self.useIntention.setInputFactor("ethics")
 
-# print(eth.getEthObservation(0.532))
-# print(eth.getEthAssessment(0.532))
+		self.relevance.setRelevance(rand.uniform(0.67, 1))
 
-# print(eth.getEthObservation(0.89))
-# print(eth.getEthAssessment(0.89))
+		if self.ethics > 0.66:
+			self.valence.setValence(rand.uniform(0.67, 1))
+			self.useIntention.setUseIntention(rand.uniform(0.67, 1))
+		elif self.ethics <= 0.66 and self.ethics > 0.33:
+			self.valence.setValence(rand.uniform(0.34, 0.67))
+			self.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
+		else:
+			self.valence.setValence(rand.uniform(0, 0.33))
+			self.useIntention.setUseIntention(rand.uniform(0, 0.33))
+
+
+		# if(posOrNeg == "positive"):
+		# 	if self.ethics > 0.66:
+		# 		self.involvement.setInvolvement(rand.uniform(0.67, 1))
+		# 	elif self.ethics <= 0.66 and self.ethics > 0.33:
+		# 		self.involvement.setInvolvement(rand.uniform(0.34, 0.67))
+		# 	else:
+		# 		self.involvement.setInvolvement(rand.uniform(0, 0.34))
+		# 	self.distance.setDistance(rand.uniform(0, 0.5))
+
+		# elif(posOrNeg == "negative"):
+		# 	if self.ethics > 0.66:
+		# 		self.involvement.setDistance(rand.uniform(0.67, 1))
+		# 	elif self.ethics <= 0.66 and self.ethics > 0.33:
+		# 		self.involvement.setDistance(rand.uniform(0.34, 0.67))
+		# 	else:
+		# 		self.involvement.setDistance(rand.uniform(0, 0.34))
+		# 	self.distance.setInvolvement(rand.uniform(0, 0.5))
+
+
+	def coppeliaSpeaksEthics(self, posOrNeg):
+		self.ethicsModeling(posOrNeg)
+		if(posOrNeg == "positive"):
+			print(self.getPosEthObservation())
+			print(self.getPosEthAssessment())
+			print(self.relevance.getPosRelevance())
+			print(self.valence.getPosValence())
+			print(self.useIntention.getPosUI())
+		else:
+			print(self.getNegEthObservation())
+			print(self.getNegEthAssessment())
+			print(self.relevance.getNegRelevance())
+			print(self.valence.getNegValence())
+			print(self.useIntention.getNegUI())
+		
 
 
 """
