@@ -29,12 +29,12 @@ class FileEngine:
 
 
 class StayWith(Enum):
-    SKILLFUL: tuple = [5, [num / 100 for num in range(83, 100, 1)]]
-    BRILLIANT: tuple = [4, [num / 100 for num in range(67, 83, 1)]]
-    NORMAL: tuple = [3, [num / 100 for num in range(50, 67, 1)]]
-    UNFAMILIAR: list = [2, [num / 100 for num in range(33, 50, 1)]]
-    AWKWARD: list = [1, [num / 100 for num in range(17, 33, 1)]]
-    UNSKILLFUL: list = [0, [num / 100 for num in range(0, 17, 1)]]
+    SKILLFUL: tuple = [5, [num / 100 for num in range(67, 100, 1)]]
+    BRILLIANT: tuple = [4, [num / 100 for num in range(34, 67, 1)]]
+    NORMAL: tuple = [3, [num / 100 for num in range(0, 34, 1)]]
+    UNFAMILIAR: list = [2, [(-1)*(num / 100) for num in range(0, 34, 1)]]
+    AWKWARD: list = [1, [(-1)*(num / 100) for num in range(34, 67, 1)]]
+    UNSKILLFUL: list = [0, [(-1)*(num / 100) for num in range(67, 100, 1)]]
 
 
 class Affordance:
@@ -49,7 +49,7 @@ class Affordance:
 
     def __init__(self, outerln: float) -> None:
         self.inputIn = outerln
-        self.sentences = FileEngine().TxtreturnSent()
+        self.sentences = FileEngine().ExcelreturnSent()
         return
 
     def undefined(self) -> None:
