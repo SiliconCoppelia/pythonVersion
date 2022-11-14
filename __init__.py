@@ -14,9 +14,11 @@
 # Import Dependencies
 # https://stackoverflow.com/questions/43023970/builtin-function-or-method-object-has-no-attribute-randrange
 import random as rand
+
 # Import Classes
+import sys
+sys.path.append('./features')
 from ethics import *
-from Affordance import *
 
 
 class Coppelia():

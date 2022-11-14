@@ -2,13 +2,15 @@ import Aesthetics as aest
 from enum import Enum
 import pandas as pd
 
+# import random as rand
+# from random import randrange
 
-import random as rand
-from random import randrange
-# Import Classes
-from relevance import *
-from valence import *
-from useIntention import *
+# # Import Classes
+# import sys
+# sys.path.append('..')
+# from dimensions.relevance import *
+# from dimensions.valence import *
+# from dimensions.useIntention import *
 
 sentNeg: str = r"./sentences/affordance/Affordance/AffordanceNegstream"
 sentPos: str = r"./sentences/affordance/Affordance/AffordancePosstream"
@@ -49,14 +51,14 @@ class Affordance:
 
 
 
-    # Dependency Dimensions Declaration
-    relevance = Relevance()
-    valence = Valence()
-    useIntention = UseIntention()
+    # # Dependency Dimensions Declaration
+    # relevance = Relevance()
+    # valence = Valence()
+    # useIntention = UseIntention()
 
 
-    def setAffordance(self, affordance):
-        self.affordance = affordance
+    # def setAffordance(self, affordance):
+    #     self.affordance = affordance
 
     inputIn: float
     appear: tuple
@@ -86,11 +88,24 @@ class Affordance:
             return self.sentences[1].iloc[self.appear[0] - 3]
 
 
-    def affordanceModeling(self, posOrNeg):
-        self.relevance.setInputFactor("affordance")
-        self.valence.setInputFactor("affordance")
-        self.useIntention.setInputFactor("affordance")
+    # def affordanceModeling(self, posOrNeg):
+    #     self.relevance.setInputFactor("affordance")
+    #     self.valence.setInputFactor("affordance")
+    #     self.useIntention.setInputFactor("affordance")
 
-        self.relevance.setRelevance()
+    #     self.relevance.setRelevance(rand.uniform(0.33, 0.67))
+
+    #     if self.affordance > 0.66:
+    #         self.valence.setValence(rand.uniform(0.67, 1))
+    #         self.useIntention.setUseIntention(rand.uniform(0.67, 1))
+    #     elif self.affordance <= 0.66 and self.affordance > 0.33:
+    #         self.valence.setValence(rand.uniform(0.34, 0.67))
+    #         self.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
+    #     else:
+    #         self.valence.setValence(rand.uniform(0, 0.33))
+    #         self.useIntention.setUseIntention(rand.uniform(0, 0.33))
+
+    # def coppeliaSpeaksAffordance(self, posOrNeg):
+    #     ...
 
 
