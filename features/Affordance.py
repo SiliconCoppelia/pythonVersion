@@ -2,6 +2,14 @@ import Aesthetics as aest
 from enum import Enum
 import pandas as pd
 
+
+import random as rand
+from random import randrange
+# Import Classes
+from relevance import *
+from valence import *
+from useIntention import *
+
 sentNeg: str = r"./sentences/affordance/Affordance/AffordanceNegstream"
 sentPos: str = r"./sentences/affordance/Affordance/AffordancePosstream"
 
@@ -38,10 +46,17 @@ class StayWith(Enum):
 
 
 class Affordance:
-    """
-    version 1.0
-    generally the same logistic process with the Aesthetics
-    """
+
+
+
+    # Dependency Dimensions Declaration
+    relevance = Relevance()
+    valence = Valence()
+    useIntention = UseIntention()
+
+
+    def setAffordance(self, affordance):
+        self.affordance = affordance
 
     inputIn: float
     appear: tuple
@@ -59,10 +74,6 @@ class Affordance:
                 self.appear = iterator.value
                 break
 
-    """
-    be remind here the getAffor would return a python dataframe to caller
-    """
-
     def getAffor(self) -> str:
         self.undefined()
         print("Hey there! you will receive a pandas dataframe! which type is a pandas.Series."
@@ -74,19 +85,12 @@ class Affordance:
         elif self.appear[0] > 3:
             return self.sentences[1].iloc[self.appear[0] - 3]
 
-if __name__ == "__main__":
-    jack = Affordance(0.35)
-    print(jack.getAffor())
 
-"""
-alltheway: list = []
-section: list = []
-with open(sentNeg+"txt", "r") as fp:
-    lines = fp.readline()
-    for line in lines:
-        if line.isspace():
-            alltheway.append(section)
-            section.clear()
-        else: section.append(line)
-return pd.DataFrame(alltheway)
-"""
+    def affordanceModeling(self, posOrNeg):
+        self.relevance.setInputFactor("affordance")
+        self.valence.setInputFactor("affordance")
+        self.useIntention.setInputFactor("affordance")
+
+        self.relevance.setRelevance()
+
+

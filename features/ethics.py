@@ -6,10 +6,13 @@
 """
 import random as rand
 from random import randrange
+
 # Import Classes
-from relevance import *
-from valence import *
-from useIntention import *
+import sys
+sys.path.append('..')
+from dimensions.relevance import *
+from dimensions.valence import *
+from dimensions.useIntention import *
 
 class Ethics():
 
