@@ -44,17 +44,17 @@ class Dissimilarity:
             self.low = open("sentences/dissimilarity/dissimilarity/low.txt", "r").readlines()
         if len(self.mid) == 0:
             self.mid = open("sentences/dissimilarity/dissimilarity/mid.txt", "r").readlines()
-        if len(self.p_high) == 0:
+        if len(self.high) == 0:
             self.high = open("sentences/dissimilarity/dissimilarity/high.txt", "r").readlines()
 
         sentence=""
 
         if self.dissimilarity < 0.34:
-            sentence = self.p_low.pop(randrange(len(self.p_low))).replace("\n", "")
+            sentence = self.low.pop(randrange(len(self.low))).replace("\n", "")
         elif self.dissimilarity < 0.67:
-            sentence = self.p_mid.pop(randrange(len(self.p_mid))).replace("\n", "")
+            sentence = self.mid.pop(randrange(len(self.mid))).replace("\n", "")
         else:
-            sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
+            sentence = self.high.pop(randrange(len(self.high))).replace("\n", "")
         
 
         if len(self.UI_p_low) == 0: 
@@ -97,11 +97,11 @@ class Dissimilarity:
         sentence=""
 
         if self.dissimilarity < 0.34:
-            sentence = self.p_low.pop(randrange(len(self.p_low))).replace("\n", "")
+            sentence = self.low.pop(randrange(len(self.low))).replace("\n", "")
         elif self.dissimilarity < 0.67:
-            sentence = self.p_mid.pop(randrange(len(self.p_mid))).replace("\n", "")
+            sentence = self.mid.pop(randrange(len(self.mid))).replace("\n", "")
         else:
-            sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
+            sentence = self.high.pop(randrange(len(self.high))).replace("\n", "")
         
         if len(self.inv_low) == 0: 
             self.inv_low = open("sentences/similarity/inv_low.txt", "r").readlines()
@@ -128,11 +128,11 @@ class Dissimilarity:
         sentence=""
 
         if self.dissimilarity < 0.34:
-            sentence = self.p_low.pop(randrange(len(self.p_low))).replace("\n", "")
+            sentence = self.low.pop(randrange(len(self.low))).replace("\n", "")
         elif self.dissimilarity < 0.67:
-            sentence = self.p_mid.pop(randrange(len(self.p_mid))).replace("\n", "")
+            sentence = self.mid.pop(randrange(len(self.mid))).replace("\n", "")
         else:
-            sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
+            sentence = self.high.pop(randrange(len(self.high))).replace("\n", "")
         
         if len(self.dis_low) == 0: 
             self.dis_low = open("sentences/similarity/dis_low.txt", "r").readlines()
