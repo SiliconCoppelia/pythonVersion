@@ -13,6 +13,7 @@ sys.path.append('..')
 from dimensions.relevance import *
 from dimensions.valence import *
 from dimensions.useIntention import *
+from dimensions.Similarity import *
 
 class Ethics():
 
@@ -24,7 +25,7 @@ class Ethics():
 	relevance = Relevance()
 	valence = Valence()
 	useIntention = UseIntention()
-	# similarity = Similarity()
+	similarity = Similarity()
 	# disSimilarity = Dissimilarity()
 	# involvement = Involvement()
 	# disatance = Distance()
@@ -123,6 +124,7 @@ class Ethics():
 		self.useIntention.setInputFactor("ethics")
 
 		self.relevance.setRelevance(rand.uniform(0.67, 1))
+		# self.similarity.setSimilarity(0.2, 1, rand.uniform(0.67, 1), rand.uniform(0.67, 1), rand.uniform(0.67, 1))
 
 		if self.ethics > 0.66:
 			self.valence.setValence(rand.uniform(0.67, 1))
@@ -162,6 +164,9 @@ class Ethics():
 			print(self.relevance.getPosRelevance())
 			print(self.valence.getPosValence())
 			print(self.useIntention.getPosUI())
+			# print(self.similarity.getSimilarityOnUI())
+			# print(self.similarity.getSimilarityOnInv())
+			# print(self.similarity.getSimilarityOnDis())
 		else:
 			print(self.getNegEthObservation())
 			print(self.getNegEthAssessment())
