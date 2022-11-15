@@ -131,5 +131,17 @@ class Affordance:
 
 
 if __name__ == "__main__":
+    # Example 1:
     jack = Affordance(0.9, "neg")
-    # jack.coppeliaSpeaksEthics()
+    jack.undefined()
+    print(jack.negSpeaker()[0], jack.negSpeaker()[1])
+    print(jack.posSpeaker()[0], jack.posSpeaker()[1])
+
+    # Example 2:
+    bob = Affordance(0.3, "pos")
+    jack.undefined()
+    print(jack.negSpeaker()[0], jack.negSpeaker()[1])
+    print(jack.posSpeaker()[0], jack.posSpeaker()[1])
+
+    # you can only invoke function negSpeaker and posSpeaker to access what Coppelia
+    # would speak. I've commented the modeling and other word expression function
