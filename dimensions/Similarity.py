@@ -13,10 +13,10 @@ class Similarity:
     similarity = 0
     # moderating_factor = ""
 
-    p_low, p_mid, p_high, n_low, n_mid, n_high, \
+    low, mid, high, \
     UI_p_low, UI_p_mid, UI_p_high, UI_n_low, UI_n_mid, UI_n_high,\
     inv_low, inv_mid, inv_high,\
-    dis_low, dis_mid, dis_high = ([] for i in range(18))
+    dis_low, dis_mid, dis_high = ([] for i in range(15))
     
     # def __init__(self, use_intention, input_factor):
     #     self.use_intention = use_intention
@@ -45,12 +45,12 @@ class Similarity:
         
     '''
     def getSimilarityOnUI(self):
-        if len(self.p_low) == 0: 
-            self.p_low = open("sentences/similarity/similarity/low.txt", "r").readlines()
-        if len(self.p_mid) == 0:
-            self.p_mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
+        if len(self.low) == 0: 
+            self.low = open("sentences/similarity/similarity/low.txt", "r").readlines()
+        if len(self.mid) == 0:
+            self.mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
         if len(self.p_high) == 0:
-            self.p_high = open("sentences/similarity/similarity/high.txt", "r").readlines()
+            self.high = open("sentences/similarity/similarity/high.txt", "r").readlines()
 
         sentence=""
 
@@ -124,12 +124,12 @@ class Similarity:
     
     
     def getSimilarityOnInv(self):
-        if len(self.p_low) == 0: 
-            self.p_low = open("sentences/similarity/similarity/low.txt", "r").readlines()
-        if len(self.p_mid) == 0:
-            self.p_mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
-        if len(self.p_high) == 0:
-            self.p_high = open("sentences/similarity/similarity/high.txt", "r").readlines()
+        if len(self.low) == 0: 
+            self.low = open("sentences/similarity/similarity/low.txt", "r").readlines()
+        if len(self.mid) == 0:
+            self.mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
+        if len(self.high) == 0:
+            self.high = open("sentences/similarity/similarity/high.txt", "r").readlines()
 
         sentence=""
 
@@ -186,12 +186,12 @@ class Similarity:
     
     
     def getSimilarityOnDis(self):
-        if len(self.p_low) == 0: 
-            self.p_low = open("sentences/similarity/similarity/low.txt", "r").readlines()
-        if len(self.p_mid) == 0:
-            self.p_mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
-        if len(self.p_high) == 0:
-            self.p_high = open("sentences/similarity/similarity/high.txt", "r").readlines()
+        if len(self.low) == 0: 
+            self.low = open("sentences/similarity/similarity/low.txt", "r").readlines()
+        if len(self.mid) == 0:
+            self.mid = open("sentences/similarity/similarity/mid.txt", "r").readlines()
+        if len(self.high) == 0:
+            self.high = open("sentences/similarity/similarity/high.txt", "r").readlines()
 
         sentence=""
 
