@@ -15,16 +15,16 @@ class Similarity:
 
     p_low, p_mid, p_high, n_low, n_mid, n_high, \
     UI_p_low, UI_p_mid, UI_p_high, UI_n_low, UI_n_mid, UI_n_high,\
-    inv_p_low, inv_p_mid, inv_p_high, inv_n_low, inv_n_mid, inv_n_high,\
-    dis_p_low, dis_p_mid, dis_p_high, dis_n_low, dis_n_mid, dis_n_high = ([] for i in range(24))
+    inv_low, inv_mid, inv_high,\
+    dis_low, dis_mid, dis_high = ([] for i in range(18))
     
     # def __init__(self, use_intention, input_factor):
     #     self.use_intention = use_intention
     #     self.input_factor=input_factor
 
-    def setSimilarity(self, similarity, influence, UI, inv, dis):
+    def setSimilarity(self, similarity, UI, inv, dis):
         self.similarity = similarity
-        self.influence = influence
+        # self.influence = influence
         self.UI = UI
         self.inv = inv
         self.dis = dis
@@ -61,35 +61,65 @@ class Similarity:
         else:
             sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
         
-        # INFLUENCE
-        if(self.influence>0):
-            if len(self.UI_p_low) == 0: 
-                self.UI_p_low = open("sentences/similarity/pos/UI_low.txt", "r").readlines()
-            if len(self.UI_p_mid) == 0:
-                self.UI_p_mid = open("sentences/similarity/pos/UI_mid.txt", "r").readlines()
-            if len(self.UI_p_high) == 0:
-                self.UI_p_high = open("sentences/similarity/pos/UI_high.txt", "r").readlines()
 
+        if len(self.UI_p_low) == 0: 
+            self.UI_p_low = open("sentences/similarity/UI_p_low.txt", "r").readlines()
+        if len(self.UI_p_mid) == 0:
+            self.UI_p_mid = open("sentences/similarity/UI_p_mid.txt", "r").readlines()
+        if len(self.UI_p_high) == 0:
+            self.UI_p_high = open("sentences/similarity/UI_p_high.txt", "r").readlines()
+        if len(self.UI_n_low) == 0: 
+            self.UI_n_low = open("sentences/similarity/UI_n_low.txt", "r").readlines()
+        if len(self.UI_n_mid) == 0:
+            self.UI_n_mid = open("sentences/similarity/UI_n_mid.txt", "r").readlines()
+        if len(self.UI_n_high) == 0:
+            self.UI_n_high = open("sentences/similarity/UI_n_high.txt", "r").readlines()
+
+        if self.UI > 0 :
             if self.UI < 0.34:
                 return sentence+self.UI_p_low.pop(randrange(len(self.UI_p_low))).replace("\n", "")
             elif self.UI < 0.67:
                 return sentence+self.UI_p_mid.pop(randrange(len(self.UI_p_mid))).replace("\n", "")
             else:
                 return sentence+self.UI_p_high.pop(randrange(len(self.UI_p_high))).replace("\n", "")
-        else:
-            if len(self.UI_p_low) == 0: 
-                self.UI_p_low = open("sentences/similarity/neg/UI_low.txt", "r").readlines()
-            if len(self.UI_p_mid) == 0:
-                self.UI_p_mid = open("sentences/similarity/neg/UI_mid.txt", "r").readlines()
-            if len(self.UI_p_high) == 0:
-                self.UI_p_high = open("sentences/similarity/neg/UI_high.txt", "r").readlines()
-
-            if self.UI < 0.34:
+        else:        
+            if self.UI > -0.34:
                 return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_low))).replace("\n", "")
-            elif self.UI < 0.67:
+            elif self.UI > -0.67:
                 return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_mid))).replace("\n", "")
             else:
                 return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_high))).replace("\n", "")
+        
+        
+        # # INFLUENCE
+        # if(self.influence>0):
+        #     if len(self.UI_p_low) == 0: 
+        #         self.UI_p_low = open("sentences/similarity/pos/UI_low.txt", "r").readlines()
+        #     if len(self.UI_p_mid) == 0:
+        #         self.UI_p_mid = open("sentences/similarity/pos/UI_mid.txt", "r").readlines()
+        #     if len(self.UI_p_high) == 0:
+        #         self.UI_p_high = open("sentences/similarity/pos/UI_high.txt", "r").readlines()
+
+        #     if self.UI < 0.34:
+        #         return sentence+self.UI_p_low.pop(randrange(len(self.UI_p_low))).replace("\n", "")
+        #     elif self.UI < 0.67:
+        #         return sentence+self.UI_p_mid.pop(randrange(len(self.UI_p_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.UI_p_high.pop(randrange(len(self.UI_p_high))).replace("\n", "")
+        # else:
+        #     if len(self.UI_n_low) == 0: 
+        #         self.UI_n_low = open("sentences/similarity/neg/UI_low.txt", "r").readlines()
+        #     if len(self.UI_n_mid) == 0:
+        #         self.UI_n_mid = open("sentences/similarity/neg/UI_mid.txt", "r").readlines()
+        #     if len(self.UI_n_high) == 0:
+        #         self.UI_n_high = open("sentences/similarity/neg/UI_high.txt", "r").readlines()
+
+        #     if self.UI < 0.34:
+        #         return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_low))).replace("\n", "")
+        #     elif self.UI < 0.67:
+        #         return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.UI_n_low.pop(randrange(len(self.UI_n_high))).replace("\n", "")
         
     
     
@@ -110,35 +140,48 @@ class Similarity:
         else:
             sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
         
-        # INFLUENCE
-        if(self.influence>0):
-            if len(self.inv_p_low) == 0: 
-                self.inv_p_low = open("sentences/similarity/pos/inv_low.txt", "r").readlines()
-            if len(self.inv_p_mid) == 0:
-                self.inv_p_mid = open("sentences/similarity/pos/inv_mid.txt", "r").readlines()
-            if len(self.inv_p_high) == 0:
-                self.inv_p_high = open("sentences/similarity/pos/inv_high.txt", "r").readlines()
-
-            if self.inv < 0.34:
-                return sentence+self.inv_p_low.pop(randrange(len(self.inv_p_low))).replace("\n", "")
-            elif self.inv < 0.67:
-                return sentence+self.inv_p_mid.pop(randrange(len(self.inv_p_mid))).replace("\n", "")
-            else:
-                return sentence+self.inv_p_high.pop(randrange(len(self.inv_p_high))).replace("\n", "")
+        if len(self.inv_low) == 0: 
+            self.inv_low = open("sentences/similarity/inv_low.txt", "r").readlines()
+        if len(self.inv_mid) == 0:
+            self.inv_mid = open("sentences/similarity/inv_mid.txt", "r").readlines()
+        if len(self.inv_high) == 0:
+            self.inv_high = open("sentences/similarity/inv_high.txt", "r").readlines()
+        if self.inv < 0.34:
+            return sentence+self.inv_low.pop(randrange(len(self.inv_low))).replace("\n", "")
+        elif self.inv < 0.67:
+            return sentence+self.inv_mid.pop(randrange(len(self.inv_mid))).replace("\n", "")
         else:
-            if len(self.inv_p_low) == 0: 
-                self.inv_p_low = open("sentences/similarity/neg/inv_low.txt", "r").readlines()
-            if len(self.inv_p_mid) == 0:
-                self.inv_p_mid = open("sentences/similarity/neg/inv_mid.txt", "r").readlines()
-            if len(self.inv_p_high) == 0:
-                self.inv_p_high = open("sentences/similarity/neg/inv_high.txt", "r").readlines()
+            return sentence+self.inv_high.pop(randrange(len(self.inv_high))).replace("\n", "")
 
-            if self.inv < 0.34:
-                return sentence+self.inv_n_low.pop(randrange(len(self.inv_n_low))).replace("\n", "")
-            elif self.inv < 0.67:
-                return sentence+self.inv_n_mid.pop(randrange(len(self.inv_n_mid))).replace("\n", "")
-            else:
-                return sentence+self.inv_n_high.pop(randrange(len(self.inv_n_high))).replace("\n", "")
+        # # INFLUENCE
+        # if(self.influence>0):
+        #     if len(self.inv_p_low) == 0: 
+        #         self.inv_p_low = open("sentences/similarity/pos/inv_low.txt", "r").readlines()
+        #     if len(self.inv_p_mid) == 0:
+        #         self.inv_p_mid = open("sentences/similarity/pos/inv_mid.txt", "r").readlines()
+        #     if len(self.inv_p_high) == 0:
+        #         self.inv_p_high = open("sentences/similarity/pos/inv_high.txt", "r").readlines()
+
+        #     if self.inv < 0.34:
+        #         return sentence+self.inv_p_low.pop(randrange(len(self.inv_p_low))).replace("\n", "")
+        #     elif self.inv < 0.67:
+        #         return sentence+self.inv_p_mid.pop(randrange(len(self.inv_p_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.inv_p_high.pop(randrange(len(self.inv_p_high))).replace("\n", "")
+        # else:
+        #     if len(self.inv_p_low) == 0: 
+        #         self.inv_p_low = open("sentences/similarity/neg/inv_low.txt", "r").readlines()
+        #     if len(self.inv_p_mid) == 0:
+        #         self.inv_p_mid = open("sentences/similarity/neg/inv_mid.txt", "r").readlines()
+        #     if len(self.inv_p_high) == 0:
+        #         self.inv_p_high = open("sentences/similarity/neg/inv_high.txt", "r").readlines()
+
+        #     if self.inv < 0.34:
+        #         return sentence+self.inv_n_low.pop(randrange(len(self.inv_n_low))).replace("\n", "")
+        #     elif self.inv < 0.67:
+        #         return sentence+self.inv_n_mid.pop(randrange(len(self.inv_n_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.inv_n_high.pop(randrange(len(self.inv_n_high))).replace("\n", "")
 
     
     
@@ -159,32 +202,44 @@ class Similarity:
         else:
             sentence = self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
         
-        # INFLUENCE
-        if(self.influence>0):
-            if len(self.dis_p_low) == 0: 
-                self.dis_p_low = open("sentences/similarity/pos/dis_low.txt", "r").readlines()
-            if len(self.dis_p_mid) == 0:
-                self.dis_p_mid = open("sentences/similarity/pos/dis_mid.txt", "r").readlines()
-            if len(self.dis_p_high) == 0:
-                self.dis_p_high = open("sentences/similarity/pos/dis_high.txt", "r").readlines()
-
-            if self.dis < 0.34:
-                return sentence+self.dis_p_low.pop(randrange(len(self.dis_p_low))).replace("\n", "")
-            elif self.dis < 0.67:
-                return sentence+self.dis_p_mid.pop(randrange(len(self.dis_p_mid))).replace("\n", "")
-            else:
-                return sentence+self.dis_p_high.pop(randrange(len(self.dis_p_high))).replace("\n", "")
+        if len(self.dis_low) == 0: 
+            self.dis_low = open("sentences/similarity/dis_low.txt", "r").readlines()
+        if len(self.dis_mid) == 0:
+            self.dis_mid = open("sentences/similarity/dis_mid.txt", "r").readlines()
+        if len(self.dis_high) == 0:
+            self.dis_high = open("sentences/similarity/dis_high.txt", "r").readlines()
+        if self.dis < 0.34:
+            return sentence+self.dis_low.pop(randrange(len(self.dis_low))).replace("\n", "")
+        elif self.dis < 0.67:
+            return sentence+self.dis_mid.pop(randrange(len(self.dis_mid))).replace("\n", "")
         else:
-            if len(self.dis_p_low) == 0: 
-                self.dis_p_low = open("sentences/similarity/neg/dis_low.txt", "r").readlines()
-            if len(self.dis_p_mid) == 0:
-                self.dis_p_mid = open("sentences/similarity/neg/dis_mid.txt", "r").readlines()
-            if len(self.dis_p_high) == 0:
-                self.dis_p_high = open("sentences/similarity/neg/dis_high.txt", "r").readlines()
+            return sentence+self.dis_high.pop(randrange(len(self.dis_high))).replace("\n", "")
+        # # INFLUENCE
+        # if(self.influence>0):
+        #     if len(self.dis_p_low) == 0: 
+        #         self.dis_p_low = open("sentences/similarity/pos/dis_low.txt", "r").readlines()
+        #     if len(self.dis_p_mid) == 0:
+        #         self.dis_p_mid = open("sentences/similarity/pos/dis_mid.txt", "r").readlines()
+        #     if len(self.dis_p_high) == 0:
+        #         self.dis_p_high = open("sentences/similarity/pos/dis_high.txt", "r").readlines()
 
-            if self.dis < 0.34:
-                return sentence+self.dis_n_low.pop(randrange(len(self.dis_n_low))).replace("\n", "")
-            elif self.dis < 0.67:
-                return sentence+self.dis_n_mid.pop(randrange(len(self.dis_n_mid))).replace("\n", "")
-            else:
-                return sentence+self.dis_n_high.pop(randrange(len(self.dis_n_high))).replace("\n", "")
+        #     if self.dis < 0.34:
+        #         return sentence+self.dis_p_low.pop(randrange(len(self.dis_p_low))).replace("\n", "")
+        #     elif self.dis < 0.67:
+        #         return sentence+self.dis_p_mid.pop(randrange(len(self.dis_p_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.dis_p_high.pop(randrange(len(self.dis_p_high))).replace("\n", "")
+        # else:
+        #     if len(self.dis_p_low) == 0: 
+        #         self.dis_p_low = open("sentences/similarity/neg/dis_low.txt", "r").readlines()
+        #     if len(self.dis_p_mid) == 0:
+        #         self.dis_p_mid = open("sentences/similarity/neg/dis_mid.txt", "r").readlines()
+        #     if len(self.dis_p_high) == 0:
+        #         self.dis_p_high = open("sentences/similarity/neg/dis_high.txt", "r").readlines()
+
+        #     if self.dis < 0.34:
+        #         return sentence+self.dis_n_low.pop(randrange(len(self.dis_n_low))).replace("\n", "")
+        #     elif self.dis < 0.67:
+        #         return sentence+self.dis_n_mid.pop(randrange(len(self.dis_n_mid))).replace("\n", "")
+        #     else:
+        #         return sentence+self.dis_n_high.pop(randrange(len(self.dis_n_high))).replace("\n", "")

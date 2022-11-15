@@ -36,8 +36,6 @@ class Ethics():
 	def setEthics(self, ethics):
 		self.ethics = ethics
 
-	# def getEthics(self):
-	# 	return self.ethics
 
 	#-----------------------------POSITIVE-----------------------------#
 
@@ -124,7 +122,7 @@ class Ethics():
 		self.useIntention.setInputFactor("ethics")
 
 		self.relevance.setRelevance(rand.uniform(0.67, 1))
-		# self.similarity.setSimilarity(0.2, 1, rand.uniform(0.67, 1), rand.uniform(0.67, 1), rand.uniform(0.67, 1))
+		# self.similarity.setSimilarity(0.2, 0.32, rand.uniform(0.67, 1), rand.uniform(0.67, 1))
 
 		if self.ethics > 0.66:
 			self.valence.setValence(rand.uniform(0.67, 1))
