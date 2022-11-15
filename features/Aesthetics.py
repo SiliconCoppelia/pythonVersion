@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Appearance(Enum):
     """
     Aesthetics is designed for a auction to represent robot's reflect
