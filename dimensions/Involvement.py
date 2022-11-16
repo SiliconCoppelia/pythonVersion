@@ -11,8 +11,8 @@ class FileRead:
                                 "Inv_pos_low", "Inv_pos_mid", "Inv_pos_high"]
 
     def generator(self) -> tuple:
-        negcolumns = [pd.read_csv(self.invpreffix + file + ".txt", header = None, sep = "\s\s",engine="python") for file in self.invsuffix[0:3]]
-        poscolumns = [pd.read_csv(self.invpreffix + file + ".txt", header = None, sep = "\s\s", engine="python") for file in self.invsuffix[3:6]]
+        negcolumns = [open(self.invpreffix + file + ".txt", "rb").readlines() for file in self.invsuffix[0:3]]
+        poscolumns = [open(self.invpreffix + file + ".txt", "rb").readlines() for file in self.invsuffix[3:6]]
         return negcolumns, poscolumns
 
 
@@ -35,12 +35,14 @@ class Involvement:
     def returnPivot(self, side: int, pos: int):
         if side:
             if not self.posPanel[pos]: self.posPanel[pos] = len(self.pos[pos])
+            sentence = self.pos[pos][rand.randint(0, self.posPanel[pos])]
             self.posPanel[pos] -= 1
-            return self.pos[pos].iloc[rand.randint(0, self.posPanel[pos])].to_string(header = False, index= False)
+            return sentence.decode("utf-8")
         else:
             if not self.negPanel[pos]: self.negPanel[pos] = len(self.neg[pos])
+            sentence = self.neg[pos][rand.randint(0, self.negPanel[pos])]
             self.negPanel[pos] -= 1
-            return self.neg[pos].iloc[rand.randint(0, self.negPanel[pos])].to_string(header = False, index= False)
+            return sentence.decode("utf-8")
 
     def InvolvementNeg(self):
         """
@@ -61,13 +63,13 @@ class Involvement:
                 self.val = iterator.value
                 break
 
-    def returnInvol(self, attitude: str):
+    def returnInvol(self):
         self.identify()
-        if attitude.lower() == "neg":
+        if self.alt.lower() == "neg":
             return self.InvolvementNeg()
         else:
             return self.InvolvementPos()
 
 if __name__ == "__main__":
-    jack = Involvement(0.3, "neg")
-    print(jack.returnInvol("neg"))
+    jack = Involvement(0.1, "neg")
+    print(jack.returnInvol())
