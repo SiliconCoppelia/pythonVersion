@@ -11,8 +11,8 @@ class FileRead:
                                 "Inv_pos_low", "Inv_pos_mid", "Inv_pos_high"]
 
     def generator(self) -> tuple:
-        negcolumns = [pd.read_csv(self.invpreffix + file + ".txt", header=file) for file in self.invsuffix[0:3]]
-        poscolumns = [pd.read_csv(self.invpreffix + file + ".txt", header=file) for file in self.invsuffix[3:6]]
+        negcolumns = [pd.read_csv(self.invpreffix + file + ".txt", header = None, sep = "\s\s",engine="python") for file in self.invsuffix[0:3]]
+        poscolumns = [pd.read_csv(self.invpreffix + file + ".txt", header = None, sep = "\s\s", engine="python") for file in self.invsuffix[3:6]]
         return negcolumns, poscolumns
 
 
@@ -24,33 +24,32 @@ class StayWith(Enum):
 
 class Involvement:
 
-    def __init__(self, val: int, attitude: str):
+    def __init__(self, val: float, attitude: str):
         self.val = val
         self.neg, self.pos = FileRead().generator()
         self.alt = attitude
+        self.negPanel: list = [len(num) -1 for num in self.neg]
+        self.posPanel: list = [len(num) -1 for num in self.pos]
 
-    def panel(self) -> None:
-        self.negPanel: list = [len(num) for num in self.neg]
-        self.posPanel: list = [len(num) for num in self.pos]
 
     def returnPivot(self, side: int, pos: int):
         if side:
             if not self.posPanel[pos]: self.posPanel[pos] = len(self.pos[pos])
             self.posPanel[pos] -= 1
-            return self.pos[rand.randint(0, self.posPanel[pos])]
+            return self.pos[pos].iloc[rand.randint(0, self.posPanel[pos])].to_string(header = False, index= False)
         else:
             if not self.negPanel[pos]: self.negPanel[pos] = len(self.neg[pos])
             self.negPanel[pos] -= 1
-            return self.neg[rand.randint(0, self.negPanel[pos])]
+            return self.neg[pos].iloc[rand.randint(0, self.negPanel[pos])].to_string(header = False, index= False)
 
     def InvolvementNeg(self):
         """
         remember convert self.val from float into int
         """
-        return self.neg[self.val][self.returnPivot(0, self.val)]
+        return self.returnPivot(0, self.val[0])
 
     def InvolvementPos(self):
-        return self.pos[self.val][self.returnPivot(0, self.val)]
+        return self.returnPivot(0, self.val[0])
 
     def setInvolvement(self, val: int):
         self.val = val
@@ -68,3 +67,7 @@ class Involvement:
             return self.InvolvementNeg()
         else:
             return self.InvolvementPos()
+
+if __name__ == "__main__":
+    jack = Involvement(0.3, "neg")
+    print(jack.returnInvol("neg"))
