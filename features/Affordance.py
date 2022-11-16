@@ -1,144 +1,116 @@
-from enum import Enum
-import numpy as np
 import sys
+
 sys.path.append("..")
 
 from dimensions.valence import *
 from dimensions.relevance import *
 from dimensions.useIntention import *
-
-initial: str = r"../sentences/affordance/"
-
-sentNeg: str = "aff_neg"
-sentPos: str = "aff_pos"
-
-suffix = ["_ass", "_obs", ["_low", "_mid", "_high"]]
-
-__Total_file: int = 11
-
-
-class FileEngine:
-
-    # def ExcelreturnSent(self) -> tuple:
-    #     negative: pd.DataFrame = pd.read_excel(initial + "Affordance/AffordanceNegstream.xlsx", header=True)
-    #     positive: pd.DataFrame = pd.read_excel(initial + "Affordance/AffordancePosstream.xlsx", header=True)
-    #     return negative, positive
-
-    def TxtreturnSent(self) -> tuple:
-        """pd.read_fwf(sentNeg)"""
-        pos: list = [open(initial + sentPos + path + rank + ".txt", "r").readlines() for path in suffix[0:2]
-                     for rank in suffix[2]]
-        neg: list = [open(initial + sentNeg + path + rank + ".txt", "r").readlines() for path in suffix[0:2]
-                     for rank in suffix[2]]
-        return neg, pos
-
-
-class StayWith(Enum):
-    SKILLFUL: tuple = [5, [num / 100 for num in range(67, 100, 1)]]
-    BRILLIANT: tuple = [4, [num / 100 for num in range(34, 67, 1)]]
-    NORMAL: tuple = [3, [num / 100 for num in range(0, 34, 1)]]
-    UNFAMILIAR: list = [0, [(-1) * (num / 100) for num in range(0, 34, 1)]]
-    AWKWARD: list = [1, [(-1) * (num / 100) for num in range(34, 67, 1)]]
-    UNSKILLFUL: list = [2, [(-1) * (num / 100) for num in range(67, 100, 1)]]
+from dimensions.Similarity import *
 
 
 class Affordance:
     """
-    version 1.0
-    generally the same logistic process with the Aesthetics
+	Reference of initializing multiple list:
+	https://stackoverflow.com/questions/2402646/python-initializing-multiple-lists-line
     """
-
-    inputIn: float
-    appear: tuple
-    sentences: tuple
 
     relevance = Relevance()
     valence = Valence()
     useIntention = UseIntention()
+    similarity = Similarity()
+    # disSimilarity = Dissimilarity()
+    # involvement = Involvement()
+    # disatance = Distance()
 
-    def __init__(self, outerln: float, attitude: str) -> None:
-        self.inputIn = outerln
-        self.sentences = FileEngine().TxtreturnSent()
-        self.panel: list = [len(self.sentences[0][num]) for num in range(0, len(self.sentences[0]))] + \
-                           [len(self.sentences[1][num]) for num in range(0, len(self.sentences[1]))]
-        self.attitude = attitude.lower()
-        return
+    pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
+    neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
 
-    def panelPivot(self, sequence: int, pivot: int) -> int:
-        pointer: int = sequence + pivot * 6
-        if not self.panel[pointer]: self.panel[pointer] = len(self.sentences[pivot][sequence])
-        randnum = np.random.randint(self.panel[pointer], size=1)
-        self.panel[pointer] -= 1
-        return randnum[0]
+    def __init__(self):
+        self.affordance = 0
 
-    def undefined(self) -> None:
-        """
-        undefined is used to detect the emotion of Coppelia. to decide further reaction to
-        the target. So this function must be called before modeling
-        """
-        if self.attitude in ["neg", "negative"]: self.inputIn *= -1
-        temp: float = float("{:.2f}".format(self.inputIn))
-        for iterator in StayWith:
-            if temp in iterator.value[1]:
-                self.appear = iterator.value
-                break
+    def setAffordance(self, affordance):
+        self.affordance = affordance
 
-    def negSpeaker(self) -> tuple:
-        """
-        neg_ass, neg_obs are both string sentence
-        """
-        neg_ass = self.sentences[0][self.appear[0]][self.panelPivot(self.appear[0], 0)]
-        neg_obs = self.sentences[0][self.appear[0] + 3][self.panelPivot(self.appear[0] + 3, 0)]
-        return neg_ass, neg_obs
-        # print(self.relevance.getNegRelevance())
-        # print(self.valence.getNegValence())
-        # print(self.useIntention.getNegUI())
+    # -----------------------------POSITIVE-----------------------------#
 
-    def posSpeaker(self) -> tuple:
-        """
-        pos_ass and pos_obs are both a string sentence, not anything else
-        """
-        pos_ass = self.sentences[1][self.appear[0] - 3][self.panelPivot(self.appear[0] - 3, 1)]
-        pos_obs = self.sentences[1][self.appear[0]][self.panelPivot(self.appear[0], 1)]
-        return pos_ass, pos_obs
-        # print(self.relevance.getPosRelevance())
-        # print(self.valence.getPosValence())
-        # print(self.useIntention.getPosUI())
+    def getPosAffObservation(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.pos_obs_low) == 0:
+            self.pos_obs_low = open("./sentences/affordance/aff_pos_obs_low.txt", "r").readlines()
+        if len(self.pos_obs_mid) == 0:
+            self.pos_obs_mid = open("./sentences/affordance/aff_pos_obs_mid.txt", "r").readlines()
+        if len(self.pos_obs_high) == 0:
+            self.pos_obs_high = open("./sentences/affordance/aff_pos_obs_high.txt", "r").readlines()
 
-    # def affordanceModeling(self) -> None:
-    #     self.relevance.setInputFactor("affordance")
-    #     self.valence.setInputFactor("affordance")
-    #     self.useIntention.setInputFactor("affordance")
-    #
-    #     if self.inputIn > 0.66:
-    #         self.valence.setValence(rand.uniform(0.67, 1))
-    #         self.useIntention.setUseIntention(rand.uniform(0.67, 1))
-    #     elif 0.66 >= self.inputIn > 0.33:
-    #         self.valence.setValence(rand.uniform(0.34, 0.67))
-    #         self.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
-    #     else:
-    #         self.valence.setValence(rand.uniform(0, 0.33))
-    #         self.useIntention.setUseIntention(rand.uniform(0, 0.33))
-    #
-    # def coppeliaSpeaksEthics(self) -> None:
-    #     self.undefined()
-    #     self.affordanceModeling()
-    #     if self.appear[0] < 3:
-    #         self.negSpeaker()
-    #     else:
-    #         self.posSpeaker()
+        # Get Observation
+        if self.affordance < 0.34:
+            return self.pos_obs_low.pop(randrange(len(self.pos_obs_low))).replace("\n", "")
+        elif self.affordance >= 0.34 and self.affordance < 0.67:
+            return self.pos_obs_mid.pop(randrange(len(self.pos_obs_mid))).replace("\n", "")
+        else:
+            return self.pos_obs_high.pop(randrange(len(self.pos_obs_high))).replace("\n", "")
+
+    def getPosAffAssessment(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.pos_asses_low) == 0:
+            self.pos_asses_low = open("./sentences/affordance/aff_pos_ass_low.txt", "r").readlines()
+        if len(self.pos_asses_mid) == 0:
+            self.pos_asses_mid = open("./sentences/affordance/aff_pos_ass_mid.txt", "r").readlines()
+        if len(self.pos_asses_high) == 0:
+            self.pos_asses_high = open("./sentences/affordance/aff_pos_ass_high.txt", "r").readlines()
+
+        # Get Assessment
+        if self.affordance < 0.34:
+            return self.pos_asses_low.pop(randrange(len(self.pos_asses_low))).replace("\n", "")
+        elif self.affordance >= 0.34 and self.affordance < 0.67:
+            return self.pos_asses_mid.pop(randrange(len(self.pos_asses_mid))).replace("\n", "")
+        else:
+            return self.pos_asses_high.pop(randrange(len(self.pos_asses_high))).replace("\n", "")
+
+    # -----------------------------NEGATIVE-----------------------------#
+
+    def getNegAffObservation(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.neg_obs_low) == 0:
+            self.neg_obs_low = open("./sentences/affordance/aff_neg_obs_low.txt", "r").readlines()
+        if len(self.neg_obs_mid) == 0:
+            self.neg_obs_mid = open("./sentences/affordance/eth_neg_obs_mid.txt", "r").readlines()
+        if len(self.neg_obs_high) == 0:
+            self.neg_obs_high = open("./sentences/affordance/eth_neg_obs_high.txt", "r").readlines()
+
+        # Get Observation
+        if self.affordance < 0.34:
+            return self.neg_obs_low.pop(randrange(len(self.neg_obs_low))).replace("\n", "")
+        elif self.affordance >= 0.34 and self.affordance < 0.67:
+            return self.neg_obs_mid.pop(randrange(len(self.neg_obs_mid))).replace("\n", "")
+        else:
+            return self.neg_obs_high.pop(randrange(len(self.neg_obs_high))).replace("\n", "")
+
+    def getNegAffAssessment(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.neg_asses_low) == 0:
+            self.neg_asses_low = open("./sentences/affordance/aff_neg_ass_low.txt", "r").readlines()
+        if len(self.neg_asses_mid) == 0:
+            self.neg_asses_mid = open("./sentences/affordance/aff_neg_ass_mid.txt", "r").readlines()
+        if len(self.neg_asses_high) == 0:
+            self.neg_asses_high = open("./sentences/affordance/aff_neg_ass_high.txt", "r").readlines()
+
+        # Get Assessment
+        if self.affordance < 0.34:
+            return self.neg_asses_low.pop(randrange(len(self.neg_asses_low))).replace("\n", "")
+        elif self.affordance >= 0.34 and self.affordance < 0.67:
+            return self.neg_asses_mid.pop(randrange(len(self.neg_asses_mid))).replace("\n", "")
+        else:
+            return self.neg_asses_high.pop(randrange(len(self.neg_asses_high))).replace("\n", "")
+
+    """
+		Reference of replacing escape characters in string:
+		https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
+	"""
 
 
 if __name__ == "__main__":
-    # Example 1:
-    jack = Affordance(0.9, "neg")
-    jack.undefined()
-    print(jack.negSpeaker()[0], jack.negSpeaker()[1])
-
-    # Example 2:
-    bob = Affordance(0.3, "pos")
-    jack.undefined()
-    print(jack.posSpeaker()[0], jack.posSpeaker()[1])
-
-    # you can only invoke function negSpeaker and posSpeaker to access what Coppelia
-    # would speak. I've commented the modeling and other word expression function
+    jack = Affordance()
+    jack.setAffordance(0.35)
+    # print(jack.getNegAffAssessment())
+    print(jack.getPosAffAssessment())
