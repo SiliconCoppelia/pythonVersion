@@ -16,37 +16,40 @@ class FileRead:
 
 from random import randrange
 import sys
-sys.path.append("..")
+# sys.path.append("..")
 
 class Involvement:
-    involvement = 0
-    input_factor = ""
+    # involvement = 0
+    # input_factor = ""
 
     p_low, p_mid, p_high, n_low, n_mid, n_high = ([] for i in range(6))
 
-    def setRelevance(self, involvement):
+    def setInvolvement(self, involvement):
         self.involvement = involvement
 
-    def setInputFactor(self, input_factor):
-        self.input_factor = input_factor
+    def getInvolvement(self):
+        return self.involvement
 
-    def select_factor_dic(self):
-        if (self.input_factor == "involvement negative"):
-            return "inv_neg"
-        elif (self.input_factor == "involvement positive"):
-            return "inv_pos"
-        else:
-            pass
-            # return "aest_pos/"
+    # def setInputFactor(self, input_factor):
+    #     self.input_factor = input_factor
+
+    # def select_factor_dic(self):
+    #     if (self.input_factor == "involvement negative"):
+    #         return "inv_neg"
+    #     elif (self.input_factor == "involvement positive"):
+    #         return "inv_pos"
+    #     else:
+    #         pass
+    #         # return "aest_pos/"
 
     def getPosInvolvement(self):
         # Load corpus if all variants in one dimension are used up
         if len(self.p_low) == 0:
-            self.p_low = open("../sentences/involvement/" + self.select_factor_dic() + "_low.txt", "rb").readlines()
+            self.p_low = open("sentences/involvement/" + self.select_factor_dic() + "_low.txt", "rb").readlines()
         if len(self.p_mid) == 0:
-            self.p_mid = open("../sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "rb").readlines()
+            self.p_mid = open("sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "rb").readlines()
         if len(self.p_high) == 0:
-            self.p_high = open("../sentences/involvement/" + self.select_factor_dic() + "_high.txt", "rb").readlines()
+            self.p_high = open("sentences/involvement/" + self.select_factor_dic() + "_high.txt", "rb").readlines()
 
         if self.involvement < 0.34:
             return self.p_low.pop(randrange(len(self.p_low))).decode("utf-8")

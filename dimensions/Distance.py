@@ -3,27 +3,30 @@ import sys
 sys.path.append("..")
 
 class Distance:
-    distance = 0
-    input_factor = ""
+    # distance = 0
+    # input_factor = ""
 
     p_low, p_mid, p_high, n_low, n_mid, n_high, e_low, e_mid, e_high = ([] for i in range(9))
 
-    def setRelevance(self, distance):
+    def setDistance(self, distance):
         self.distance = distance
 
-    def setInputFactor(self, input_factor):
-        self.input_factor = input_factor
+    def getDistance(self):
+        return self.distance
 
-    def select_factor_dic(self):
-        if (self.input_factor == "ethics"):
-            return "eth_pos/"
-        elif (self.input_factor == "affordance negative"):
-            return "aff_neg/"
-        elif (self.input_factor == "affordance positive"):
-            return "aff_pos/"
-        else:
-            pass
-            # return "aest_pos/"
+    # def setInputFactor(self, input_factor):
+    #     self.input_factor = input_factor
+
+    # def select_factor_dic(self):
+    #     if (self.input_factor == "ethics"):
+    #         return "eth_pos/"
+    #     elif (self.input_factor == "affordance negative"):
+    #         return "aff_neg/"
+    #     elif (self.input_factor == "affordance positive"):
+    #         return "aff_pos/"
+    #     else:
+    #         pass
+    #         # return "aest_pos/"
 
     def getPosAffordance(self):
         # Load corpus if all variants in one dimension are used up
@@ -59,11 +62,11 @@ class Distance:
 
     def getEthics(self):
         if len(self.e_low) == 0:
-            self.e_low = open("../sentences/distance/" + self.select_factor_dic() + "_low.txt", "r").readlines()
+            self.e_low = open("sentences/distance/" + self.select_factor_dic() + "_low.txt", "r").readlines()
         if len(self.e_mid) == 0:
-            self.e_mid = open("../sentences/distance/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
+            self.e_mid = open("sentences/distance/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
         if len(self.e_high) == 0:
-            self.e_high = open("../sentences/distance/" + self.select_factor_dic() + "_high.txt", "r").readlines()
+            self.e_high = open("sentences/distance/" + self.select_factor_dic() + "_high.txt", "r").readlines()
 
         if self.distance < 0.34:
             return self.e_high.pop(randrange(len(self.e_low))).replace("\n", "")

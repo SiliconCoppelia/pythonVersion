@@ -22,6 +22,9 @@ class UseIntention:
     def setUseIntention(self, use_intention):
         self.use_intention = use_intention
 
+    def getUseIntention(self):
+        return self.use_intention
+
     def setInputFactor(self, input_factor):
         self.input_factor = input_factor
     
