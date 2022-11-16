@@ -13,7 +13,10 @@ sys.path.append('..')
 from dimensions.relevance import *
 from dimensions.valence import *
 from dimensions.useIntention import *
+from dimensions.Involvement import *
+from dimensions.Distance import *
 from dimensions.Similarity import *
+from dimensions.Dissimilarity import *
 
 class Ethics():
 
@@ -26,9 +29,9 @@ class Ethics():
 	valence = Valence()
 	useIntention = UseIntention()
 	similarity = Similarity()
-	# disSimilarity = Dissimilarity()
-	# involvement = Involvement()
-	# disatance = Distance()
+	disSimilarity = Dissimilarity()
+	involvement = Involvement()
+	distance = Distance()
 
 	pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
 	neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
@@ -135,54 +138,43 @@ class Ethics():
 			self.useIntention.setUseIntention(rand.uniform(0, 0.33))
 
 
-		# if(posOrNeg == "positive"):
-		# 	if self.ethics > 0.66:
-		# 		self.involvement.setInvolvement(rand.uniform(0.67, 1))
-		# 	elif self.ethics <= 0.66 and self.ethics > 0.33:
-		# 		self.involvement.setInvolvement(rand.uniform(0.34, 0.67))
-		# 	else:
-		# 		self.involvement.setInvolvement(rand.uniform(0, 0.34))
-		# 	self.distance.setDistance(rand.uniform(0, 0.5))
+		if(posOrNeg == "positive"):
+			if self.ethics > 0.66:
+				self.involvement.setInvolvement(rand.uniform(0.67, 1))
+			elif self.ethics <= 0.66 and self.ethics > 0.33:
+				self.involvement.setInvolvement(rand.uniform(0.34, 0.67))
+			else:
+				self.involvement.setInvolvement(rand.uniform(0, 0.34))
+			self.distance.setDistance(rand.uniform(0, 0.5))
+			# self.similarity.setSimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
 
-		# elif(posOrNeg == "negative"):
-		# 	if self.ethics > 0.66:
-		# 		self.involvement.setDistance(rand.uniform(0.67, 1))
-		# 	elif self.ethics <= 0.66 and self.ethics > 0.33:
-		# 		self.involvement.setDistance(rand.uniform(0.34, 0.67))
-		# 	else:
-		# 		self.involvement.setDistance(rand.uniform(0, 0.34))
-		# 	self.distance.setInvolvement(rand.uniform(0, 0.5))
+
+		elif(posOrNeg == "negative"):
+			if self.ethics > 0.66:
+				self.distance.setDistance(rand.uniform(0.67, 1))
+			elif self.ethics <= 0.66 and self.ethics > 0.33:
+				self.distance.setDistance(rand.uniform(0.34, 0.67))
+			else:
+				self.distance.setDistance(rand.uniform(0, 0.34))
+			self.involvement.setInvolvement(rand.uniform(0, 0.5))
+			# self.disSimilarity.setDissimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
 
 
 	def coppeliaSpeaksEthics(self, posOrNeg):
 		self.ethicsModeling(posOrNeg)
+		
 		if(posOrNeg == "positive"):
-			print(self.getPosEthObservation())
-			print(self.getPosEthAssessment())
-			print(self.relevance.getPosRelevance())
-			print(self.valence.getPosValence())
-			print(self.useIntention.getPosUI())
+			self.response = [self.getPosEthObservation(), self.getPosEthAssessment(), self.relevance.getPosRelevance(),\
+				self.valence.getPosValence(), self.useIntention.getPosUI()]
 			# print(self.similarity.getSimilarityOnUI())
 			# print(self.similarity.getSimilarityOnInv())
 			# print(self.similarity.getSimilarityOnDis())
 		else:
-			print(self.getNegEthObservation())
-			print(self.getNegEthAssessment())
-			print(self.relevance.getNegRelevance())
-			print(self.valence.getNegValence())
-			print(self.useIntention.getNegUI())
-		
+			self.response = [self.getNegEthObservation(), self.getNegEthAssessment(), self.relevance.getNegRelevance(),\
+				self.valence.getNegValence(), self.useIntention.getNegUI()]
+		# print(self.involvement.getInvolvement())
+		# print(self.distance.getDistance())
 
-
-"""
-	Ethics Object update log:
-		v 1.1 created on 4th Oct
-		v 1.2 created on 13th Oct
-			- Seperation of Positive sentences into different files
-			- Finalize Ethics Positive model
-		v 1.3 created on 1st Nov
-			- Adding Ethics Negative model
-"""
-
+		print("\n".join(self.response))
 
 
