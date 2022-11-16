@@ -1,7 +1,5 @@
 from enum import Enum
-import pandas as pd
 import numpy as np
-import random as rand
 import sys
 sys.path.append("..")
 
@@ -28,9 +26,9 @@ class FileEngine:
 
     def TxtreturnSent(self) -> tuple:
         """pd.read_fwf(sentNeg)"""
-        pos: list = [pd.read_csv(initial + sentPos + path + rank + ".txt", header=None, sep='/') for path in suffix[0:2]
+        pos: list = [open(initial + sentPos + path + rank + ".txt", "r").readlines() for path in suffix[0:2]
                      for rank in suffix[2]]
-        neg: list = [pd.read_csv(initial + sentNeg + path + rank + ".txt", header=None, sep='/') for path in suffix[0:2]
+        neg: list = [open(initial + sentNeg + path + rank + ".txt", "r").readlines() for path in suffix[0:2]
                      for rank in suffix[2]]
         return neg, pos
 
@@ -54,15 +52,16 @@ class Affordance:
     appear: tuple
     sentences: tuple
 
+    relevance = Relevance()
+    valence = Valence()
+    useIntention = UseIntention()
+
     def __init__(self, outerln: float, attitude: str) -> None:
         self.inputIn = outerln
         self.sentences = FileEngine().TxtreturnSent()
         self.panel: list = [len(self.sentences[0][num]) for num in range(0, len(self.sentences[0]))] + \
                            [len(self.sentences[1][num]) for num in range(0, len(self.sentences[1]))]
         self.attitude = attitude.lower()
-        self.relevance = Relevance()
-        self.valence = Valence()
-        self.useIntention = UseIntention()
         return
 
     def panelPivot(self, sequence: int, pivot: int) -> int:
@@ -88,8 +87,8 @@ class Affordance:
         """
         neg_ass, neg_obs are both string sentence
         """
-        neg_ass = self.sentences[0][self.appear[0]].iloc[self.panelPivot(self.appear[0], 0)].to_string(header=False, index=False)
-        neg_obs = self.sentences[0][self.appear[0] + 3].iloc[self.panelPivot(self.appear[0] + 3, 0)].to_string(header=False, index=False)
+        neg_ass = self.sentences[0][self.appear[0]][self.panelPivot(self.appear[0], 0)]
+        neg_obs = self.sentences[0][self.appear[0] + 3][self.panelPivot(self.appear[0] + 3, 0)]
         return neg_ass, neg_obs
         # print(self.relevance.getNegRelevance())
         # print(self.valence.getNegValence())
@@ -99,8 +98,8 @@ class Affordance:
         """
         pos_ass and pos_obs are both a string sentence, not anything else
         """
-        pos_ass = self.sentences[1][self.appear[0] - 3].iloc[self.panelPivot(self.appear[0] - 3, 1)].to_string(header=False, index=False)
-        pos_obs = self.sentences[1][self.appear[0]].iloc[self.panelPivot(self.appear[0], 1)].to_string(header=False, index=False)
+        pos_ass = self.sentences[1][self.appear[0] - 3][self.panelPivot(self.appear[0] - 3, 1)]
+        pos_obs = self.sentences[1][self.appear[0]][self.panelPivot(self.appear[0], 1)]
         return pos_ass, pos_obs
         # print(self.relevance.getPosRelevance())
         # print(self.valence.getPosValence())
@@ -135,12 +134,10 @@ if __name__ == "__main__":
     jack = Affordance(0.9, "neg")
     jack.undefined()
     print(jack.negSpeaker()[0], jack.negSpeaker()[1])
-    print(jack.posSpeaker()[0], jack.posSpeaker()[1])
 
     # Example 2:
     bob = Affordance(0.3, "pos")
     jack.undefined()
-    print(jack.negSpeaker()[0], jack.negSpeaker()[1])
     print(jack.posSpeaker()[0], jack.posSpeaker()[1])
 
     # you can only invoke function negSpeaker and posSpeaker to access what Coppelia
