@@ -1,77 +1,78 @@
-import pandas as pd
-import random as rand
-from enum import Enum
-
-
-class FileRead:
-
-    def __init__(self) -> None:
-        self.invpreffix: str = r"../sentences/distance/"
-        self.negsuffix: list = ["aff_neg/_low", "aff_neg/_mid", "aff_neg/_high"]
-        self.posuffix: list = ["aff_pos/_low", "aff_pos/_mid", "aff_pos/_high"]
-
-    def generator(self) -> tuple:
-        negcolumns = [open(self.invpreffix + file + ".txt", "r").readlines() for file in
-                      self.negsuffix]
-        poscolumns = [open(self.invpreffix + file + ".txt", "r").readlines() for file in
-                      self.posuffix]
-        return negcolumns, poscolumns
-
-
-class StayWith(Enum):
-    UNFAMILIAR: list = [0, [(num / 100) for num in range(0, 34, 1)]]
-    AWKWARD: list = [1, [(num / 100) for num in range(34, 67, 1)]]
-    UNSKILLFUL: list = [2, [(num / 100) for num in range(67, 100, 1)]]
-
+from random import randrange
+import sys
+sys.path.append("..")
 
 class Distance:
+    distance = 0
+    input_factor = ""
 
-    def __init__(self, val: float, attitude: str):
-        self.val = val
-        self.neg, self.pos = FileRead().generator()
-        self.alt = attitude
-        self.negPanel: list = [len(num) - 1 for num in self.neg]
-        self.posPanel: list = [len(num) - 1 for num in self.pos]
+    p_low, p_mid, p_high, n_low, n_mid, n_high, e_low, e_mid, e_high = ([] for i in range(9))
 
-    def identify(self):
-        temp: float = float("{:.2f}".format(self.val))
-        for iterator in StayWith:
-            if temp in iterator.value[1]:
-                self.val = iterator.value
-                break
+    def setRelevance(self, distance):
+        self.distance = distance
 
-    def returnPivot(self, side: int, pos: int):
-        if side:
-            if not self.posPanel[pos]: self.posPanel[pos] = len(self.pos[pos])
-            sentence = self.pos[pos][rand.randint(0, self.posPanel[pos])]
-            self.posPanel[pos] -= 1
-            return sentence
+    def setInputFactor(self, input_factor):
+        self.input_factor = input_factor
+
+    def select_factor_dic(self):
+        if (self.input_factor == "ethics"):
+            return "eth_pos/"
+        elif (self.input_factor == "affordance negative"):
+            return "aff_neg/"
+        elif (self.input_factor == "affordance positive"):
+            return "aff_pos/"
         else:
-            if not self.negPanel[pos]: self.negPanel[pos] = len(self.neg[pos])
-            sentence = self.neg[pos][rand.randint(0, self.negPanel[pos])]
-            self.negPanel[pos] -= 1
-            return sentence
+            pass
+            # return "aest_pos/"
 
-    def DistanceNeg(self):
-        """
-        remember convert self.val from float into int
-        """
-        return self.returnPivot(0, self.val[0])
+    def getPosAffordance(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.p_low) == 0:
+            self.p_low = open("sentences/distance/" + self.select_factor_dic() + "_low.txt", "r").readlines()
+        if len(self.p_mid) == 0:
+            self.p_mid = open("sentences/distance/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
+        if len(self.p_high) == 0:
+            self.p_high = open("sentences/distance/" + self.select_factor_dic() + "_high.txt", "r").readlines()
 
-    def DistancePos(self):
-        return self.returnPivot(1, self.val[0])
-
-    def setDistance(self, val: int):
-        self.val = val
-
-    def returnDist(self):
-        self.identify()
-        if self.alt.lower() == "neg":
-            return self.DistanceNeg()
+        if self.distance < 0.34:
+            return self.p_low.pop(randrange(len(self.p_low))).replace("\n", "")
+        elif self.distance < 0.67:
+            return self.p_mid.pop(randrange(len(self.p_mid))).replace("\n", "")
         else:
-            return self.DistancePos()
+            return self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
 
+    def getNegAffordance(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.n_low) == 0:
+            self.n_low = open("sentences/distance/" + self.select_factor_dic() + "_low.txt", "r").readlines()
+        if len(self.n_mid) == 0:
+            self.n_mid = open("sentences/distance/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
+        if len(self.n_high) == 0:
+            self.n_high = open("sentences/distance/" + self.select_factor_dic() + "_high.txt", "r").readlines()
+
+        if self.distance < 0.34:
+            return self.n_high.pop(randrange(len(self.n_low))).replace("\n", "")
+        elif self.distance < 0.67:
+            return self.n_mid.pop(randrange(len(self.n_mid))).replace("\n", "")
+        else:
+            return self.n_low.pop(randrange(len(self.n_high))).replace("\n", "")
+
+    def getEthics(self):
+        if len(self.e_low) == 0:
+            self.e_low = open("../sentences/distance/" + self.select_factor_dic() + "_low.txt", "r").readlines()
+        if len(self.e_mid) == 0:
+            self.e_mid = open("../sentences/distance/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
+        if len(self.e_high) == 0:
+            self.e_high = open("../sentences/distance/" + self.select_factor_dic() + "_high.txt", "r").readlines()
+
+        if self.distance < 0.34:
+            return self.e_high.pop(randrange(len(self.e_low))).replace("\n", "")
+        elif self.distance < 0.67:
+            return self.e_mid.pop(randrange(len(self.e_mid))).replace("\n", "")
+        else:
+            return self.e_low.pop(randrange(len(self.e_high))).replace("\n", "")
 
 if __name__ == "__main__":
-    jack = Distance(0.8, "pos")
-    print(jack.returnDist())
+    jack = Distance()
+    jack.setInputFactor("affordance positive")
+    print(jack.getEthics())

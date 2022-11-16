@@ -1,4 +1,3 @@
-import pandas as pd
 import random as rand
 from enum import Enum
 
@@ -15,61 +14,65 @@ class FileRead:
         poscolumns = [open(self.invpreffix + file + ".txt", "rb").readlines() for file in self.invsuffix[3:6]]
         return negcolumns, poscolumns
 
-
-class StayWith(Enum):
-    UNFAMILIAR: list = [0, [(num / 100) for num in range(0, 34, 1)]]
-    AWKWARD: list = [1, [(num / 100) for num in range(34, 67, 1)]]
-    UNSKILLFUL: list = [2, [(num / 100) for num in range(67, 100, 1)]]
-
+from random import randrange
+import sys
+sys.path.append("..")
 
 class Involvement:
+    involvement = 0
+    input_factor = ""
 
-    def __init__(self, val: float, attitude: str):
-        self.val = val
-        self.neg, self.pos = FileRead().generator()
-        self.alt = attitude
-        self.negPanel: list = [len(num) -1 for num in self.neg]
-        self.posPanel: list = [len(num) -1 for num in self.pos]
+    p_low, p_mid, p_high, n_low, n_mid, n_high = ([] for i in range(6))
 
+    def setRelevance(self, involvement):
+        self.involvement = involvement
 
-    def returnPivot(self, side: int, pos: int):
-        if side:
-            if not self.posPanel[pos]: self.posPanel[pos] = len(self.pos[pos])
-            sentence = self.pos[pos][rand.randint(0, self.posPanel[pos])]
-            self.posPanel[pos] -= 1
-            return sentence.decode("utf-8")
+    def setInputFactor(self, input_factor):
+        self.input_factor = input_factor
+
+    def select_factor_dic(self):
+        if (self.input_factor == "involvement negative"):
+            return "inv_neg"
+        elif (self.input_factor == "involvement positive"):
+            return "inv_pos"
         else:
-            if not self.negPanel[pos]: self.negPanel[pos] = len(self.neg[pos])
-            sentence = self.neg[pos][rand.randint(0, self.negPanel[pos])]
-            self.negPanel[pos] -= 1
-            return sentence.decode("utf-8")
+            pass
+            # return "aest_pos/"
 
-    def InvolvementNeg(self):
-        """
-        remember convert self.val from float into int
-        """
-        return self.returnPivot(0, self.val[0])
+    def getPosInvolvement(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.p_low) == 0:
+            self.p_low = open("../sentences/involvement/" + self.select_factor_dic() + "_low.txt", "rb").readlines()
+        if len(self.p_mid) == 0:
+            self.p_mid = open("../sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "rb").readlines()
+        if len(self.p_high) == 0:
+            self.p_high = open("../sentences/involvement/" + self.select_factor_dic() + "_high.txt", "rb").readlines()
 
-    def InvolvementPos(self):
-        return self.returnPivot(0, self.val[0])
-
-    def setInvolvement(self, val: int):
-        self.val = val
-
-    def identify(self):
-        temp: float = float("{:.2f}".format(self.val))
-        for iterator in StayWith:
-            if temp in iterator.value[1]:
-                self.val = iterator.value
-                break
-
-    def returnInvol(self):
-        self.identify()
-        if self.alt.lower() == "neg":
-            return self.InvolvementNeg()
+        if self.involvement < 0.34:
+            return self.p_low.pop(randrange(len(self.p_low))).decode("utf-8")
+        elif self.involvement < 0.67:
+            return self.p_mid.pop(randrange(len(self.p_mid))).decode("utf-8")
         else:
-            return self.InvolvementPos()
+            return self.p_high.pop(randrange(len(self.p_high))).decode("utf-8")
+
+    def getNegInvolvement(self):
+        # Load corpus if all variants in one dimension are used up
+        if len(self.n_low) == 0:
+            self.n_low = open("sentences/involvement/" + self.select_factor_dic() + "_low.txt", "r").readlines()
+        if len(self.n_mid) == 0:
+            self.n_mid = open("sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "r").readlines()
+        if len(self.n_high) == 0:
+            self.n_high = open("sentences/involvement/" + self.select_factor_dic() + "_high.txt", "r").readlines()
+
+        if self.involvement < 0.34:
+            return self.n_high.pop(randrange(len(self.n_low))).replace("\n", "")
+        elif self.involvement < 0.67:
+            return self.n_mid.pop(randrange(len(self.n_mid))).replace("\n", "")
+        else:
+            return self.n_low.pop(randrange(len(self.n_high))).replace("\n", "")
 
 if __name__ == "__main__":
-    jack = Involvement(0.1, "neg")
-    print(jack.returnInvol())
+    jack = Involvement()
+    jack.setInputFactor("involvement negative")
+    jack.setRelevance(0.6)
+    print(jack.getPosInvolvement())
