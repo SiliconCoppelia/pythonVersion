@@ -1,4 +1,8 @@
 import pandas as pd
+import random as rand
+from enum import Enum
+
+
 class FileRead:
 
     def __init__(self) -> None:
@@ -9,68 +13,58 @@ class FileRead:
     def generator(self) -> tuple:
         negcolumns = [pd.read_csv(self.invpreffix + file + ".txt", header=file) for file in self.invsuffix[0:3]]
         poscolumns = [pd.read_csv(self.invpreffix + file + ".txt", header=file) for file in self.invsuffix[3:6]]
-        return (negcolumns, poscolumns)
+        return negcolumns, poscolumns
+
+
+class StayWith(Enum):
+    UNFAMILIAR: list = [0, [(num / 100) for num in range(0, 34, 1)]]
+    AWKWARD: list = [1, [(num / 100) for num in range(34, 67, 1)]]
+    UNSKILLFUL: list = [2, [(num / 100) for num in range(67, 100, 1)]]
+
 
 class Involvement:
 
-    def __init__(self, val):
+    def __init__(self, val: int, attitude: str):
         self.val = val
         self.neg, self.pos = FileRead().generator()
+        self.alt = attitude
 
-    def neg(self):
-        if 0.33 >= self.val >=0: return
+    def panel(self) -> None:
+        self.negPanel: list = [len(num) for num in self.neg]
+        self.posPanel: list = [len(num) for num in self.pos]
+
+    def returnPivot(self, side: int, pos: int):
+        if side:
+            if not self.posPanel[pos]: self.posPanel[pos] = len(self.pos[pos])
+            self.posPanel[pos] -= 1
+            return self.pos[rand.randint(0, self.posPanel[pos])]
+        else:
+            if not self.negPanel[pos]: self.negPanel[pos] = len(self.neg[pos])
+            self.negPanel[pos] -= 1
+            return self.neg[rand.randint(0, self.negPanel[pos])]
+
+    def InvolvementNeg(self):
+        """
+        remember convert self.val from float into int
+        """
+        return self.neg[self.val][self.returnPivot(0, self.val)]
+
+    def InvolvementPos(self):
+        return self.pos[self.val][self.returnPivot(0, self.val)]
+
+    def setInvolvement(self, val: int):
+        self.val = val
+
+    def identify(self):
+        temp: float = float("{:.2f}".format(self.val))
+        for iterator in StayWith:
+            if temp in iterator.value[1]:
+                self.val = iterator.value
+                break
 
     def returnInvol(self, attitude: str):
-        attitude = attitude.lower()
-        if attitude == "neg": return self.neg()
-        return self.pos()
-
-
-# class Engagement:
-#     variable: dict
-#
-#     def __init__(self, variable: dict):
-#         self.variable = variable
-#         return
-#
-#     def callOfValue(self):
-#         self.variable["aest"] = aest.Aesthetics(self.variable["Aesthetics"]).getAest()
-#         self.variable["affor"] = affor.Affordance(self.variable["Affordance"]).getAffor()
-#         self.variable["epis"]: int
-#         self.variable["relevance"]: int = rel.Relevance().getNegRelevance() if self.variable["rel"] < 0 else rel.Relevance().getPosRelevance()
-#         self.variable["valence"]: int = vals.Valence().getNegValence() if self.variable["vals"] < 0 else vals.Valence().getPosValence()
-#
-#     class Involvement:
-#         entrance: dict
-#         localGet: dict
-#         """
-#         entrance :var indicates the needed input stored
-#         in dict, which contains the initial value of
-#         Aesthetics, Affordances, and Epistemic
-#         :parameter: outer will be an instance of outer class
-#         """
-#
-#         def __init__(self, outer):
-#             self.entrance = outer.variable
-#             return
-#
-#         def weight(self):
-#             ...
-#
-#         def getInvolvement(self) -> None:
-#             res = FileRead().generator()
-#             if self.entrance["inv"] > 0 and self.entrance["inv"] < 0.34: return res[1]["Inv_pos_low"]
-#             elif self.entrance["inv"] > 0.34 and self.entrance["inv"] < 0.67: return res[1]["Inv_pos_mid"]
-#             elif self.entrance["inv"] > 0.67 and self.entrance["inv"] < 1: return res[1]["Inv_pos_high"]
-#
-#
-#     class Distance:
-#         entrance: dict
-#         localVar: dict
-#
-#         def __init__(self, outer):
-#             self.entrance = outer
-#             return
-#
-#         def weight(self):
-#             ...
+        self.identify()
+        if attitude.lower() == "neg":
+            return self.InvolvementNeg()
+        else:
+            return self.InvolvementPos()
