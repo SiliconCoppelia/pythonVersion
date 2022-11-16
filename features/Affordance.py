@@ -2,10 +2,13 @@ import sys
 
 sys.path.append("..")
 
-from dimensions.valence import *
 from dimensions.relevance import *
+from dimensions.valence import *
 from dimensions.useIntention import *
+from dimensions.Involvement import *
+from dimensions.Distance import *
 from dimensions.Similarity import *
+from dimensions.Dissimilarity import *
 
 
 class Affordance:
@@ -18,9 +21,9 @@ class Affordance:
     valence = Valence()
     useIntention = UseIntention()
     similarity = Similarity()
-    # disSimilarity = Dissimilarity()
-    # involvement = Involvement()
-    # disatance = Distance()
+    disSimilarity = Dissimilarity()
+    involvement = Involvement()
+    distance = Distance()
 
     pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
     neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
@@ -74,9 +77,9 @@ class Affordance:
         if len(self.neg_obs_low) == 0:
             self.neg_obs_low = open("./sentences/affordance/aff_neg_obs_low.txt", "r").readlines()
         if len(self.neg_obs_mid) == 0:
-            self.neg_obs_mid = open("./sentences/affordance/eth_neg_obs_mid.txt", "r").readlines()
+            self.neg_obs_mid = open("./sentences/affordance/aff_neg_obs_mid.txt", "r").readlines()
         if len(self.neg_obs_high) == 0:
-            self.neg_obs_high = open("./sentences/affordance/eth_neg_obs_high.txt", "r").readlines()
+            self.neg_obs_high = open("./sentences/affordance/aff_neg_obs_high.txt", "r").readlines()
 
         # Get Observation
         if self.affordance < 0.34:
@@ -108,9 +111,68 @@ class Affordance:
 		https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
 	"""
 
+    def affordanceModeling(self, posOrNeg):
 
-if __name__ == "__main__":
-    jack = Affordance()
-    jack.setAffordance(0.35)
-    # print(jack.getNegAffAssessment())
-    print(jack.getPosAffAssessment())
+        self.relevance.setInputFactor("affordance")
+        self.valence.setInputFactor("affordance")
+        self.useIntention.setInputFactor("affordance")
+
+        self.relevance.setRelevance(rand.uniform(0.67, 1))
+        # self.similarity.setSimilarity(0.2, 0.32, rand.uniform(0.67, 1), rand.uniform(0.67, 1))
+
+        if self.affordance > 0.66:
+            self.valence.setValence(rand.uniform(0.67, 1))
+            self.useIntention.setUseIntention(rand.uniform(0.67, 1))
+        elif self.affordance <= 0.66 and self.affordance > 0.33:
+            self.valence.setValence(rand.uniform(0.34, 0.67))
+            self.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
+        else:
+            self.valence.setValence(rand.uniform(0, 0.33))
+            self.useIntention.setUseIntention(rand.uniform(0, 0.33))
+
+
+        if(posOrNeg == "positive"):
+            if self.affordance > 0.66:
+                self.involvement.setInvolvement(rand.uniform(0.67, 1))
+            elif self.affordance <= 0.66 and self.affordance > 0.33:
+                self.involvement.setInvolvement(rand.uniform(0.34, 0.67))
+            else:
+                self.involvement.setInvolvement(rand.uniform(0, 0.34))
+            self.distance.setDistance(rand.uniform(0, 0.5))
+            # self.similarity.setSimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
+
+
+        elif(posOrNeg == "negative"):
+            if self.affordance > 0.66:
+                self.distance.setDistance(rand.uniform(0.67, 1))
+            elif self.affordance <= 0.66 and self.affordance > 0.33:
+                self.distance.setDistance(rand.uniform(0.34, 0.67))
+            else:
+                self.distance.setDistance(rand.uniform(0, 0.34))
+            self.involvement.setInvolvement(rand.uniform(0, 0.5))
+            # self.disSimilarity.setDissimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
+
+
+    def coppeliaSpeaksAffordance(self, posOrNeg):
+        self.affordanceModeling(posOrNeg)
+        
+        if(posOrNeg == "positive"):
+            self.response = [self.getPosAffObservation(), self.getPosAffAssessment(), self.relevance.getPosRelevance(),\
+                self.valence.getPosValence(), self.useIntention.getPosUI()]
+            # print(self.similarity.getSimilarityOnUI())
+            # print(self.similarity.getSimilarityOnInv())
+            # print(self.similarity.getSimilarityOnDis())
+        else:
+            self.response = [self.getNegAffObservation(), self.getNegAffAssessment(), self.relevance.getNegRelevance(),\
+                self.valence.getNegValence(), self.useIntention.getNegUI()]
+        # print(self.involvement.getInvolvement())
+        # print(self.distance.getDistance())
+
+        print("\n".join(self.response))
+
+
+# if __name__ == "__main__":
+#     jack = Affordance()
+#     jack.setAffordance(0.35)
+#     # print(jack.getNegAffAssessment())
+#     print(jack.getPosAffAssessment())
