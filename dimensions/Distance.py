@@ -6,10 +6,10 @@ class Distance:
     # a_low, a_mid, a_high, e_low, e_mid, e_high = ([] for i in range(6))
     dis_high, dis_low, dis_mid = ([] for i in range(3))
 
-    def setDistance(self, distance):
+    def setDist(self, distance):
         self.distance = distance
 
-    def getDistance(self):
+    def getDist(self):
         return self.distance
 
     # def setInputFactor(self, input_factor):
