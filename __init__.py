@@ -20,7 +20,7 @@ from tkinter import *
 import sys
 sys.path.append('./features')
 from ethics import *
-from Affordance import *
+from affordance import *
 
 
 Greet = "Hi there, before we get started, allow me to know you more by asking you some questions."
@@ -38,14 +38,6 @@ class GUIForQuestionsAndCV():
 	def mainLoop(self):
 		self.window.mainloop()
 
-	def questionsWidgets(self, Questions):
-		Label(text = Questions, font=("Dosis", 20), bg = "#f4f2ea", fg = "#000a39").pack(side= TOP, anchor="w")
-		self.answers.append(Entry().pack(side= TOP, anchor="w"))
-
-	def buttonWidgets(self):
-		Submit = Button(self.window, text = "Submit", width=20, height=2, activebackground='#AA2E00', activeforeground='#AA2E00')
-		Submit.pack(side= TOP, anchor="w")
-
 	def windowSettings(self):
 		self.window.geometry("750x250")
 		self.window.configure(bg = "#f4f2ea")
@@ -56,6 +48,19 @@ class GUIForQuestionsAndCV():
 		self.questionsWidgets(Question3)
 
 		self.buttonWidgets()
+
+	def questionsWidgets(self, Questions):
+		Label(text = Questions, font=("Dosis", 20), bg = "#f4f2ea", fg = "#000a39").pack(side= TOP, anchor="w")
+		self.answers.append(Entry().pack(side= TOP, anchor="w"))
+
+	def buttonWidgets(self):
+		Submit = Button(self.window, text = "Submit", width=20, height=2, activebackground='#AA2E00', activeforeground='#AA2E00')
+		Submit.pack(side= TOP, anchor="w")
+		Submit.bind("<Button-1>", self.passAnswer)
+
+	def passAnswer(self, event):
+		# print(' '.join(self.answers.get()))
+		self.window.destroy()
 
 
 class Coppelia():
@@ -85,14 +90,14 @@ class Coppelia():
 	# https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
 
 
-GUIWindow = GUIForQuestionsAndCV()
-GUIWindow.windowSettings()
-GUIWindow.mainLoop()
+# GUIWindow = GUIForQuestionsAndCV()
+# GUIWindow.windowSettings()
+# GUIWindow.mainLoop()
 
 coppelia = Coppelia()
-coppelia.setEthics(rand.uniform(0, 1))
-coppelia.coppeliaSpeaksEthics("positive")
-coppelia.coppeliaSpeaksEthics("negative")
+# coppelia.setEthics(rand.uniform(0, 1))
+# coppelia.coppeliaSpeaksEthics("positive")
+# coppelia.coppeliaSpeaksEthics("negative")
 
 coppelia.setAffordance(rand.uniform(0, 1))
 coppelia.coppeliaSpeaksAffordance("positive")
