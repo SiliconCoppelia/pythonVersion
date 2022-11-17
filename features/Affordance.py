@@ -14,8 +14,8 @@ from dimensions.Dissimilarity import *
 
 class Affordance:
     """
-	Reference of initializing multiple list:
-	https://stackoverflow.com/questions/2402646/python-initializing-multiple-lists-line
+        Reference of initializing multiple list:
+        https://stackoverflow.com/questions/2402646/python-initializing-multiple-lists-line
     """
 
     relevance = Relevance()
@@ -108,9 +108,9 @@ class Affordance:
             return self.neg_asses_high.pop(randrange(len(self.neg_asses_high))).replace("\n", "")
 
     """
-		Reference of replacing escape characters in string:
-		https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
-	"""
+        Reference of replacing escape characters in string:
+        https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
+    """
 
     def affordanceModeling(self, posOrNeg):
 
