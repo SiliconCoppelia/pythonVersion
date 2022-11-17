@@ -34,11 +34,11 @@ class Distance:
             self.dis_high = open("./sentences/distance/dist_high.txt", "rb").readlines()
 
         if self.distance < 0.34:
-            return self.dis_low.pop(randrange(len(self.dis_low))).decode("utf-8")
+            return (self.dis_low.pop(randrange(len(self.dis_low))).decode("utf-8")).replace("\n","")
         elif self.distance < 0.67:
-            return self.dis_mid.pop(randrange(len(self.dis_mid))).decode("utf-8")
+            return (self.dis_mid.pop(randrange(len(self.dis_mid))).decode("utf-8")).replace("\n","")
         else:
-            return self.dis_high.pop(randrange(len(self.dis_high))).decode("utf-8")
+            return (self.dis_high.pop(randrange(len(self.dis_high))).decode("utf-8")).replace("\n","")
 
     # def getAffordance(self):
     #     # Load corpus if all variants in one dimension are used up

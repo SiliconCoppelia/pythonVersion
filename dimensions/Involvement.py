@@ -34,11 +34,11 @@ class Involvement:
             self.invl_high = open("./sentences/involvement/invl_high.txt", "rb").readlines()
 
         if self.involvement < 0.34:
-            return self.invl_low.pop(randrange(len(self.invl_low))).decode("utf-8")
+            return (self.invl_low.pop(randrange(len(self.invl_low))).decode("utf-8")).replace("\n","")
         elif self.involvement < 0.67:
-            return self.invl_mid.pop(randrange(len(self.invl_mid))).decode("utf-8")
+            return (self.invl_mid.pop(randrange(len(self.invl_mid))).decode("utf-8")).replace("\n","")
         else:
-            return self.invl_high.pop(randrange(len(self.invl_high))).decode("utf-8")
+            return (self.invl_high.pop(randrange(len(self.invl_high))).decode("utf-8")).replace("\n","")
 
     # def getEthics(self):
     #     # Load corpus if all variants in one dimension are used up
