@@ -41,21 +41,21 @@ class Involvement:
         else:
             return self.aff_high.pop(randrange(len(self.aff_high))).decode("utf-8")
 
-    def getEthics(self):
-        # Load corpus if all variants in one dimension are used up
-        if len(self.eth_low) == 0:
-            self.eth_low = open("./sentences/involvement/" + self.select_factor_dic() + "_low.txt", "rb").readlines()
-        if len(self.eth_mid) == 0:
-            self.eth_mid = open("./sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "rb").readlines()
-        if len(self.eth_high) == 0:
-            self.eth_high = open("./sentences/involvement/" + self.select_factor_dic() + "_high.txt", "rb").readlines()
-
-        if self.involvement < 0.34:
-            return self.eth_low.pop(randrange(len(self.eth_low))).decode("utf-8")
-        elif self.involvement < 0.67:
-            return self.eth_mid.pop(randrange(len(self.eth_mid))).decode("utf-8")
-        else:
-            return self.eth_high.pop(randrange(len(self.eth_high))).decode("utf-8")
+    # def getEthics(self):
+    #     # Load corpus if all variants in one dimension are used up
+    #     if len(self.eth_low) == 0:
+    #         self.eth_low = open("./sentences/involvement/" + self.select_factor_dic() + "_low.txt", "rb").readlines()
+    #     if len(self.eth_mid) == 0:
+    #         self.eth_mid = open("./sentences/involvement/" + self.select_factor_dic() + "_mid.txt", "rb").readlines()
+    #     if len(self.eth_high) == 0:
+    #         self.eth_high = open("./sentences/involvement/" + self.select_factor_dic() + "_high.txt", "rb").readlines()
+    #
+    #     if self.involvement < 0.34:
+    #         return self.eth_low.pop(randrange(len(self.eth_low))).decode("utf-8")
+    #     elif self.involvement < 0.67:
+    #         return self.eth_mid.pop(randrange(len(self.eth_mid))).decode("utf-8")
+    #     else:
+    #         return self.eth_high.pop(randrange(len(self.eth_high))).decode("utf-8")
 
 
 if __name__ == "__main__":
@@ -64,7 +64,4 @@ if __name__ == "__main__":
     jack.setInvolvement(0.6)
     print(jack.getInvolvement())
 
-    jack.setInputFactor("ethics")
-    jack.setInvolvement(0.8)
-    print(jack.getEthics())
 
