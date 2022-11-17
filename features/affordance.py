@@ -29,11 +29,20 @@ class Affordance:
     pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
     neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
 
+    posOrder = ["[Computer Vision]", "[Affor Encoding]", "[Goal Statement]", "[Relevance]", "[Valence]", "[Use Itention]", \
+                    "[Similarity on UI]", "[Involvement]", "[Similarity on Invl]", "[Distance]", "[Similarity on Dist]", ""]
+
+    negOrder = ["[Computer Vision]", "[Affor Encoding]", "[Goal Statement]", "[Relevance]", "[Valence]", "[Use Itention]", \
+                    "[DisSimilarity on UI]", "[Involvement]", "[DisSimilarity on Invl]", "[Distance]", "[DisSimilarity on Dist]", ""]
+
     def __init__(self):
         self.affordance = 0
 
     def setAffordance(self, affordance):
         self.affordance = affordance
+
+    def setGoal(self, goal):
+        self.goal = goal
 
     # -----------------------------POSITIVE-----------------------------#
 
@@ -158,15 +167,21 @@ class Affordance:
         self.affordanceModeling(posOrNeg)
         
         if(posOrNeg == "positive"):
-            self.response = [self.getPosAffObservation(), self.getPosAffAssessment(), self.relevance.getPosRelevance(),\
+            self.response = [self.getPosAffObservation(), self.getPosAffAssessment(), self.goal, self.relevance.getPosRelevance(),\
                 self.valence.getPosValence(), self.useIntention.getPosUI(), self.similarity.getSimilarityOnUI(), \
                 self.involvement.getInvolvement(), self.similarity.getSimilarityOnInv(), self.distance.getDistance(), self.similarity.getSimilarityOnDis()]
         else:
-            self.response = [self.getNegAffObservation(), self.getNegAffAssessment(), self.relevance.getNegRelevance(),\
+            self.response = [self.getNegAffObservation(), self.getNegAffAssessment(), self.goal, self.relevance.getNegRelevance(),\
                 self.valence.getNegValence(), self.useIntention.getNegUI(), self.disSimilarity.getDissimilarityOnUI(), \
                 self.involvement.getInvolvement(), self.disSimilarity.getDissimilarityOnInv(), self.distance.getDistance(), self.disSimilarity.getDissimilarityOnDis()]
 
-        print("\n".join(self.response))
+        # print("\n".join(self.response))
+        self.response.append("\n")
+        for i in range(0, len(self.response)):
+            if posOrNeg == "positive":
+                print(f"{self.posOrder[i]:>25}{self.response[i]:>120}")
+            else:
+                print(f"{self.negOrder[i]:>25}{self.response[i]:>120}")
 
 
 # if __name__ == "__main__":
