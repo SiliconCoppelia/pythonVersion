@@ -1,7 +1,8 @@
+import random as rand
+from random import randrange
+
 import sys
-
 sys.path.append("..")
-
 from dimensions.relevance import *
 from dimensions.valence import *
 from dimensions.useIntention import *
@@ -133,24 +134,24 @@ class Affordance:
 
         if(posOrNeg == "positive"):
             if self.affordance > 0.66:
-                self.involvement.setInvolvement(rand.uniform(0.67, 1))
+                self.involvement.setInvl(rand.uniform(0.67, 1))
             elif self.affordance <= 0.66 and self.affordance > 0.33:
-                self.involvement.setInvolvement(rand.uniform(0.34, 0.67))
+                self.involvement.setInvl(rand.uniform(0.34, 0.67))
             else:
-                self.involvement.setInvolvement(rand.uniform(0, 0.34))
-            self.distance.setDistance(rand.uniform(0, 0.5))
-            # self.similarity.setSimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
+                self.involvement.setInvl(rand.uniform(0, 0.34))
+            self.distance.setDist(rand.uniform(0, 0.5))
+            self.similarity.setSimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvl(), self.distance.getDist())
 
 
         elif(posOrNeg == "negative"):
             if self.affordance > 0.66:
-                self.distance.setDistance(rand.uniform(0.67, 1))
+                self.distance.setDist(rand.uniform(0.67, 1))
             elif self.affordance <= 0.66 and self.affordance > 0.33:
-                self.distance.setDistance(rand.uniform(0.34, 0.67))
+                self.distance.setDist(rand.uniform(0.34, 0.67))
             else:
-                self.distance.setDistance(rand.uniform(0, 0.34))
-            self.involvement.setInvolvement(rand.uniform(0, 0.5))
-            # self.disSimilarity.setDissimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvolvement(), self.distance.getDistance())
+                self.distance.setDist(rand.uniform(0, 0.34))
+            self.involvement.setInvl(rand.uniform(0, 0.5))
+            self.disSimilarity.setDissimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvl(), self.distance.getDist())
 
 
     def coppeliaSpeaksAffordance(self, posOrNeg):
@@ -158,15 +159,12 @@ class Affordance:
         
         if(posOrNeg == "positive"):
             self.response = [self.getPosAffObservation(), self.getPosAffAssessment(), self.relevance.getPosRelevance(),\
-                self.valence.getPosValence(), self.useIntention.getPosUI()]
-            # print(self.similarity.getSimilarityOnUI())
-            # print(self.similarity.getSimilarityOnInv())
-            # print(self.similarity.getSimilarityOnDis())
+                self.valence.getPosValence(), self.useIntention.getPosUI(), self.similarity.getSimilarityOnUI(), \
+                self.involvement.getInvolvement(), self.similarity.getSimilarityOnInv(), self.distance.getDistance(), self.similarity.getSimilarityOnDis()]
         else:
             self.response = [self.getNegAffObservation(), self.getNegAffAssessment(), self.relevance.getNegRelevance(),\
-                self.valence.getNegValence(), self.useIntention.getNegUI()]
-        # print(self.involvement.getInvolvement())
-        # print(self.distance.getDistance())
+                self.valence.getNegValence(), self.useIntention.getNegUI(), self.disSimilarity.getDissimilarityOnUI(), \
+                self.involvement.getInvolvement(), self.disSimilarity.getDissimilarityOnInv(), self.distance.getDistance(), self.disSimilarity.getDissimilarityOnDis()]
 
         print("\n".join(self.response))
 
