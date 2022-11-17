@@ -41,11 +41,11 @@ class Dissimilarity:
     '''
     def getDissimilarityOnUI(self):
         if len(self.low) == 0: 
-            self.low = open("sentences/dissimilarity/dissimilarity/low.txt", "r").readlines()
+            self.low = open("sentences/similarity/dissimilarity/low.txt", "r").readlines()
         if len(self.mid) == 0:
-            self.mid = open("sentences/dissimilarity/dissimilarity/mid.txt", "r").readlines()
+            self.mid = open("sentences/similarity/dissimilarity/mid.txt", "r").readlines()
         if len(self.high) == 0:
-            self.high = open("sentences/dissimilarity/dissimilarity/high.txt", "r").readlines()
+            self.high = open("sentences/similarity/dissimilarity/high.txt", "r").readlines()
 
         sentence=""
 

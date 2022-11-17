@@ -6,10 +6,10 @@ class Involvement:
     # aff_low, aff_mid, aff_high, eth_low, eth_mid, eth_high = ([] for i in range(6))
     invl_high, invl_low, invl_mid = ([] for i in range(3))
 
-    def setInvolvement(self, involvement):
+    def setInvl(self, involvement):
         self.involvement = involvement
 
-    def getInvolvement(self):
+    def getInvl(self):
         return self.involvement
 
     # def setInputFactor(self, input_factor):
