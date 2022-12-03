@@ -2,6 +2,7 @@
   @Author Yooki ZHANG
   @Date 31/9/2022
   @Description:
+  Realted to relevence, valence, similarity 
 
 '''
 
@@ -12,6 +13,7 @@ class UseIntention:
 
     use_intention = 0
     input_factor = ""
+    rel,val=0
 
     p_low, p_mid, p_high, n_low, n_mid, n_high = ([] for i in range(6))
     
@@ -19,8 +21,14 @@ class UseIntention:
     #     self.use_intention = use_intention
     #     self.input_factor=input_factor
 
-    def setUseIntention(self, use_intention):
+    # def setUseIntention(self, use_intention):
+    #     self.use_intention = use_intention
+
+    def setUseIntention(self, use_intention, rel, val):
         self.use_intention = use_intention
+        self.val = val
+        self.rel = rel
+
 
     def getUseIntention(self):
         return self.use_intention
@@ -53,7 +61,10 @@ class UseIntention:
         else:
             return self.p_high.pop(randrange(len(self.p_high))).replace("\n", "")
     
-    
+    # print sentences of "similarity moderating UI"
+    def similarityModeratingUI():
+        return
+
     def getNegUI(self):
         # Load corpus if all variants in one dimension are used up
         if len(self.n_low) == 0: 
