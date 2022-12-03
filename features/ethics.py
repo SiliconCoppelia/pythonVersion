@@ -182,6 +182,8 @@ class Ethics():
 
 		# print("\n".join(self.response))
 		self.response.append("\n")
+		# Reference: 
+        # https://towardsdatascience.com/formatting-strings-and-numbers-in-python-16a326a5d5b3#:~:text=Aligning%20the%20output%20neatly%20using,that%20you%20want%20to%20format.&text=We%20can%20use%20the%20fortmat,in%20the%20order%20we%20want.
 		for i in range(0, len(self.response)):
 			if posOrNeg == "positive":
 				print(f"{self.posOrder[i]:>25}{self.response[i]:>120}")
