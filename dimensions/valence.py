@@ -30,6 +30,9 @@ class Valence:
         elif(self.input_factor=="aesthetics"): return "aesthetics/"
         else: return "epistemics/"
     
+    def getValValue(self):
+        return self.valence
+    
     def getPosValence(self):
         if len(self.p_low) == 0: 
             self.p_low = open("sentences/"+self.select_factor_dic()+"valence/p_low.txt", "r").readlines()

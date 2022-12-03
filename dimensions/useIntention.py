@@ -27,13 +27,15 @@ class UseIntention:
 
     def setInputFactor(self, input_factor):
         self.input_factor = input_factor
-    
     # def select_factor_dic(self):
     #     if(self.input_factor=="ethics"): return "ethics/"
     #     elif(self.input_factor=="affordance"): return "affordance/"
     #     elif(self.input_factor=="aesthetics"): return "aesthetics/"
     #     else: return "epistemics/"
     
+    def getUIValue(self):
+        return self.use_intention
+
     def getPosUI(self):
         # Load corpus if all variants in one dimension are used up
         if len(self.p_low) == 0: 

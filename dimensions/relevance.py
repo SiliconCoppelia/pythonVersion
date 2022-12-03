@@ -24,6 +24,9 @@ class Relevance:
     def setInputFactor(self, input_factor):
         self.input_factor = input_factor
     
+    def getRelValue(self):
+        return self.relevance
+    
     def select_factor_dic(self):
         if(self.input_factor=="ethics"): return "ethics/"
         elif(self.input_factor=="affordance"): return "affordance/"
