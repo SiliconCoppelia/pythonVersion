@@ -1,0 +1,226 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+body
+{
+background-color:#f2e6ce;
+}
+
+/* ------------ Used for navigation bar part ------------*/
+.navigationbar
+{
+    position:absolute;
+    left: 0;
+    top: 0;
+    width:100vw;
+    height:60px;
+    background-color:#6e8b74;
+    /* background-image: linear-gradient(to right,#02582f, #02582f); */
+    border-bottom:0.2px solid #53765a;
+}
+
+.navigationbar-title-container
+{
+    width: 320px;
+    left:30px;
+    top:5px;
+    position:absolute;
+    
+}
+
+.fa-robot {
+    left: 10px;
+    top:7px;
+    color: #f7f5f5;
+    position:absolute;
+}
+
+.navigationbar-title-content{
+    font-size: 26px;
+    left: 65px;
+    top:7px;
+    position:absolute;
+    color:#ffffff;
+}
+
+
+/* ------------ Used for bottombar part ------------*/
+
+.bottombar
+{
+
+    left:30vw;
+    bottom: 40px;
+    position:fixed;
+    width:fit-content;
+    margin: auto;
+    height:fit-content;
+    
+}
+
+.bottombar-actions-submit{
+    position: absolute;
+    margin-top: 15px;
+    right: 8px;
+    height: 35px;
+    border-radius:20px;
+    width:65px;
+    font-size: 16px;
+    border:1px #00a31e;
+    background-color: #017416;
+}
+
+/* ##########################################  Used for message part ################################*/
+
+/* ------------------------- interactive */
+.interactive-area{
+    position:absolute;
+    left: 0vw;
+    top: 60px;
+    bottom:110px;
+    width:100vw;
+    background-color:#f2e6ce;
+    /* overflow-y:auto;
+    overflow-x: hidden; */
+}
+/* .interactive-area::-webkit-scrollbar{
+    display: none;
+} */
+
+.basic-info-area{
+    float: left;
+    width: 33vw;
+    height: 100%;
+    margin-left: 2vw;
+}
+
+.user-name-info{
+    position: relative;
+    top: 10vw;
+    height: 40px;
+    margin-bottom: 40px;
+}
+
+.user-name-input{
+    position: relative;
+    top:20px;
+    height:20px;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    background-color: #f2e6ce;
+}
+
+.user-age-info{
+    position: relative;
+    top:15vw;
+}
+.user-age-info form{
+    margin-top: 15px;
+}
+form{
+    margin-top: 5px
+}
+
+input{
+    margin-top: 10px;
+}
+
+.question-choice-area{
+    margin-left: 40vw;
+    width: 58vw;
+    height: 100%;
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+.question-choice-area::-webkit-scrollbar{
+    display: none;
+}
+
+.question-square
+{
+    width:fit-content;
+    top:20px;
+    margin-bottom: 50px;
+    position:relative;
+    height:fit-content;
+    /* border:1px solid; */
+    line-height:auto;
+}
+
+.question-content
+{
+    top: 10px;
+    position: relative;
+    height:fit-content;
+    font-weight: bold;
+    color:#000000;
+    font-size: 16px;
+}
+
+.choice-buttons-area{
+    top: 10px;
+    height:fit-content;
+    position: relative;
+    color:#2f2f2f;
+    font-size: 14px
+}
+.choice-buttons-area li{
+    min-height: 23px;
+}
+
+
+/* ------------------------- choice bubbles */
+
+.choice-area{
+position: inherit;
+top:6px;
+width:fit-content;
+max-width: 60vw;
+height:fit-content;
+/* background-color:#b7b7b7;
+border:1px solid #797979; */
+}
+.choice-bubble{
+background-color: #b7b7b7;
+border:#b7b7b7 solid;
+width:fit-content;
+max-width: 100px;
+height:fit-content;
+top:2px;
+left:0.2px;
+right: 0.2px;
+position:inherit;
+border-radius: 10px;
+text-align: center;
+margin: 2px 0px;
+font-size: 14px;
+font-family: "Gill Sans", sans-serif;
+color:#000000;
+}
+
+.choice-bubble p{
+    text-align: center;
+    margin: 2px;
+    font-size: 14px;
+    font-family: "Gill Sans", sans-serif;
+    color:#000000;
+}
+
+.choice-bubble:hover{
+    background-color: #cfcfcf;
+    border:#cfcfcf solid;
+}
+.choice-bubble:active, .choice-bubble:focus{
+    background-color: #00BA61;
+    border: #01b15c solid;
+}
+
+
+.choice-bubble:active, .choice-bubble:focus p{
+    color: #ffffff;
+}
