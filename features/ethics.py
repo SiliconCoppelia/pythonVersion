@@ -8,7 +8,8 @@ import random as rand
 from random import randrange
 
 # Import Classes
-#Import Coppeélia Profile
+#import Coppeélia Profile
+#import spacy
 
 class Ethics():
 
@@ -26,13 +27,25 @@ class Ethics():
 	negOrder = ["[Goal Statement]", "[Computer Vision]", "[Ethics Encoding]", "[Relevance]", "[Valence]", "[Use Itention]", \
 					"[DisSimilarity on UI]", "[Involvement]", "[DisSimilarity on Invl]", "[Distance]", "[DisSimilarity on Dist]", ""]
 
-	# coppeliaProfile = CoppeliaProfile()
-	"""
-		If the 
-	"""
+	#coppeliaProfile = CoppeliaProfile()
+	def getFeatureWeight(self):
+		"""
+			If the profile is stored in words:
+		"""
+		nlp = spacy.load('en_core_web_md')
+		tokens = nlp(coppeliaProfile.getXXX())
+		token1, token2 = tokens[0], tokens[1]
+		return token1.similarity(token2)
+
+		"""
+			Else if in numbers
+		"""
+		return getXXX()
+
 
 	def setEthics(self, ethics):
 		self.ethics = ethics
+		self.ethics = getFeatureWeight() * self.ethics
 
 	def setGoal(self, goal):
 		self.goal = goal
