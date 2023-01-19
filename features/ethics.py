@@ -8,15 +8,7 @@ import random as rand
 from random import randrange
 
 # Import Classes
-import sys
-sys.path.append('..')
-from dimensions.relevance import *
-from dimensions.valence import *
-from dimensions.useIntention import *
-from dimensions.Involvement import *
-from dimensions.Distance import *
-from dimensions.Similarity import *
-from dimensions.Dissimilarity import *
+#Import Coppeélia Profile
 
 class Ethics():
 
@@ -24,14 +16,6 @@ class Ethics():
 		Reference of initializing multiple list: 
 		https://stackoverflow.com/questions/2402646/python-initializing-multiple-lists-line
 	"""
-
-	relevance = Relevance()
-	valence = Valence()
-	useIntention = UseIntention()
-	similarity = Similarity()
-	disSimilarity = Dissimilarity()
-	involvement = Involvement()
-	distance = Distance()
 
 	pos_obs_low, pos_obs_mid, pos_obs_high, pos_asses_low, pos_asses_mid, pos_asses_high = ([] for i in range(6))
 	neg_obs_low, neg_obs_mid, neg_obs_high, neg_asses_low, neg_asses_mid, neg_asses_high = ([] for i in range(6))
@@ -41,6 +25,11 @@ class Ethics():
 
 	negOrder = ["[Goal Statement]", "[Computer Vision]", "[Ethics Encoding]", "[Relevance]", "[Valence]", "[Use Itention]", \
 					"[DisSimilarity on UI]", "[Involvement]", "[DisSimilarity on Invl]", "[Distance]", "[DisSimilarity on Dist]", ""]
+
+	# coppeliaProfile = CoppeliaProfile()
+	"""
+		If the 
+	"""
 
 	def setEthics(self, ethics):
 		self.ethics = ethics
@@ -124,70 +113,3 @@ class Ethics():
 		Reference of replacing escape characters in string:
 		https://www.geeksforgeeks.org/python-removing-newline-character-from-string/
 	"""
-
-
-	def ethicsModeling(self, posOrNeg):
-
-		self.relevance.setInputFactor("ethics")
-		self.valence.setInputFactor("ethics")
-		self.useIntention.setInputFactor("ethics")
-
-		self.relevance.setRelevance(rand.uniform(0.67, 1))
-		# self.similarity.setSimilarity(0.2, 0.32, rand.uniform(0.67, 1), rand.uniform(0.67, 1))
-
-		if self.ethics > 0.66:
-			self.valence.setValence(rand.uniform(0.67, 1))
-			self.useIntention.setUseIntention(rand.uniform(0.67, 1))
-		elif self.ethics <= 0.66 and self.ethics > 0.33:
-			self.valence.setValence(rand.uniform(0.34, 0.67))
-			self.useIntention.setUseIntention(rand.uniform(0.34, 0.67))
-		else:
-			self.valence.setValence(rand.uniform(0, 0.33))
-			self.useIntention.setUseIntention(rand.uniform(0, 0.33))
-
-
-		if(posOrNeg == "positive"):
-			if self.ethics > 0.66:
-				self.involvement.setInvl(rand.uniform(0.67, 1))
-			elif self.ethics <= 0.66 and self.ethics > 0.33:
-				self.involvement.setInvl(rand.uniform(0.34, 0.67))
-			else:
-				self.involvement.setInvl(rand.uniform(0, 0.34))
-			self.distance.setDist(rand.uniform(0, 0.5))
-			self.similarity.setSimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvl(), self.distance.getDist())
-
-
-		elif(posOrNeg == "negative"):
-			if self.ethics > 0.66:
-				self.distance.setDist(rand.uniform(0.67, 1))
-			elif self.ethics <= 0.66 and self.ethics > 0.33:
-				self.distance.setDist(rand.uniform(0.34, 0.67))
-			else:
-				self.distance.setDist(rand.uniform(0, 0.34))
-			self.involvement.setInvl(rand.uniform(0, 0.5))
-			self.disSimilarity.setDissimilarity(rand.uniform(0, 1), self.useIntention.getUseIntention(), self.involvement.getInvl(), self.distance.getDist())
-
-
-	def coppeliaSpeaksEthics(self, posOrNeg):
-		self.ethicsModeling(posOrNeg)
-		
-		if(posOrNeg == "positive"):
-			self.response = [self.goal, self.getPosEthObservation(), self.getPosEthAssessment(), self.relevance.getPosRelevance(),\
-				self.valence.getPosValence(), self.useIntention.getPosUI(), self.similarity.getSimilarityOnUI(), \
-				self.involvement.getInvolvement(), self.similarity.getSimilarityOnInv(), self.distance.getDistance(), self.similarity.getSimilarityOnDis()]
-		else:
-			self.response = [self.goal, self.getNegEthObservation(), self.getNegEthAssessment(), self.relevance.getNegRelevance(),\
-				self.valence.getNegValence(), self.useIntention.getNegUI(), self.disSimilarity.getDissimilarityOnUI(), \
-				self.involvement.getInvolvement(), self.disSimilarity.getDissimilarityOnInv(), self.distance.getDistance(), self.disSimilarity.getDissimilarityOnDis()]
-
-		# print("\n".join(self.response))
-		self.response.append("\n")
-		# Reference: 
-        # https://towardsdatascience.com/formatting-strings-and-numbers-in-python-16a326a5d5b3#:~:text=Aligning%20the%20output%20neatly%20using,that%20you%20want%20to%20format.&text=We%20can%20use%20the%20fortmat,in%20the%20order%20we%20want.
-		for i in range(0, len(self.response)):
-			if posOrNeg == "positive":
-				print(f"{self.posOrder[i]:>25}{self.response[i]:>120}")
-			else:
-				print(f"{self.negOrder[i]:>25}{self.response[i]:>120}")
-
-
