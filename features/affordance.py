@@ -66,7 +66,12 @@ class Affordance_Counterpart(Question):
             self.respon_platform[self.Mental][1] = [random.uniform(0.5, 0.8), random.uniform(0.1, 0.5)]
         else: self.respon_platform[self.Mental][1] = [random.uniform(0.1, 0.5), random.uniform(0.1, 0.5)]
 
+    # I'm going to use this function to adjust the feature weight computed from
+    # return_value(), since two float multiply could only lead to smaller value
     def reality_judge(self):
+        pass
+
+    def feature_enlarge(self, result: list) -> list:
         pass
 
     def divide_judgement(self):
@@ -77,7 +82,8 @@ class Affordance_Counterpart(Question):
     def return_value(self):
         physics, mental = np.array(self.respon_platform[self.Physics][1]), np.array(self.respon_platform[self.Mental][1]).T
         result = np.multiply(physics, mental)
-        return {"Negaff": result[0], "Posaff": result[1]}
+        result = self.feature_enlarge(result)
+        return {"affneg": result[0], "affpos": result[1]}
 
 
 
