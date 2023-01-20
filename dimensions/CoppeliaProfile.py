@@ -5,11 +5,17 @@ from random import randrange
 
 class CoppeliaProfile:
 
-    COPPELIA_ON_EHTHICS = "Very Kind"
-    COPPELIA_ON_AFFORDANCE = "Smart"
-    PREFERENCE_ON_EthICS = "Friendly"
-    PREFERENCE_ON_AFFORDANCE = "Nutural"
+    # the definition about 'Epistemics' part is not clear...
 
+    COPPELIA_ON_ETHICS = "Very Kind"
+    COPPELIA_ON_AFFORDANCE = "Smart"
+    COPPELIA_ON_AESTHETICS = "Beautiful"
+    COPPELIA_ON_AESTHETICS = "Realistic"
+
+    PREFERENCE_ON_ETHICS = "Friendly"
+    PREFERENCE_ON_AFFORDANCE = "Nutural"
+    PREFERENCE_ON_AESTHETICS = "Gorgeous"
+    PREFERENCE_ON_EPISTEMICS = "True"
 
     def factorsOnGoals(self, goal):
         return 
@@ -31,6 +37,9 @@ class CoppeliaProfile:
             calculate the distance between Coppelia and the Agent
         """
         return 
+
+    def getsimilarity(self):
+        return
 
     def setIvolvement(self, involvement):
         self.involvement = involvement
