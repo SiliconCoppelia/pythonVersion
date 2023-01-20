@@ -2,7 +2,7 @@ from random import randrange
 import pandas as pd
 import relevance
 import valence
-from Similarity import Similarity as simi
+from Dissimilarity import Dissimilarity as dsimi
 
 class Factors:
     def __init__(self, relevance, valence, similarity: float, affordance: float = 0, w_rel_val: float = 0.5) -> None:
@@ -47,10 +47,10 @@ class Involvement:
 
     rel = relevance.Relevance().getPosRelevance()
     val = valence.Valence().getPosValence()
-    similarity = simi()
+    similarity = dsimi()
 
     def __init__(self):
-        self.factor = Factors(relevance=self.rel, valence=self.val, similarity=self.similarity.getSimilarityOnInv())
+        self.factor = Factors(relevance=self.rel, valence=self.val, similarity=self.similarity().getSimilarityOnInv())
 
     def setInvl(self, involvement):
         self.involvement = involvement
