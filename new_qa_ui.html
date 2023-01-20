@@ -5,6 +5,7 @@
     <title>Silicon Coppélia</title>
     <link rel="stylesheet" href="qa_ui.css">
 	<script src="https://kit.fontawesome.com/6af1e368ac.js" crossorigin="anonymous"></script>
+    <script src="./qa.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id='navigationbar' class='navigationbar'>
@@ -13,174 +14,188 @@
             <div id='navigationbar-title-content' class='navigationbar-title-content'>Silicon Coppélia</div>
         </div>
     </div>
-    <div id='bottombar' class='bottombar'>
-        <button type="button" class="bottombar-actions-submit" onclick="user_send_msg()">
-            <span style="color: white;">Submit</span>
-        </button>
-    </div>
-    <div id='interactive-area' class ='interactive-area'>
-        <div id="basic-info-area" class="basic-info-area">
-            <div class="user-name-info">
-                <div id='question-content' class='question-content'>Your nickname (what Silicon Coppélia should call you)</div>
-                <input placeholder="Typing here..." required="required" id="user-name-input" class="user-name-input" name="user-name-input"> 
-            </div>
-            <div class="user-age-info">
-                <div id='question-content' class='question-content'>Your approximate age range</div>
-                <div id="age-choices-area" class="age-choices-area">
-                    <form id="choices">
-                        <input type="radio" name="text" value="age-level-1" type="radio" name="text" value="age-level-1">0 - 13<br>
-                        <input type="radio" name="text" value="age-level-1" type="radio" name="text" value="age-level-2">14 - 20<br>
-                        <input type="radio" name="text" value="age-level-1" type="radio" name="text" value="age-level-3">21 - 30<br>
-                        <input type="radio" name="text" value="age-level-1" type="radio" name="text" value="age-level-4">31 - 55<br>
-                        <input type="radio" name="text" value="age-level-1" type="radio" name="text" value="age-level-5">> 55<br>
-                    </form>
-                </div>
-            </div>
+    <form id="choices" action="/action_page.php"></form>
+        <div id='bottombar' class='bottombar'>
+            <input type="submit" value="submit" class="bottombar-actions-submit" onclick="user_send_msg()">
+                <!-- <span style="color: white;">Submit</span> -->
+            </input>
         </div>
-        <div id="question-choice-area" class="question-choice-area">
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>Sand is to beach as ____ is to road</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">paint<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-correct" class="choice-correct">asphalt<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">signs<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">cars<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>Which word does not belong?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">Optometrist<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">Dentist<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-correct" class="choice-correct">Optician<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">Orthodontist<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>Four peoples are to be seated in four adjacent chairs aranged in a row. If two of them are to be seated to each other, how many different seating arrangements are possible?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">6<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">8<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-correct" class="choice-correct">12<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">16<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>The odds against the occurrence of an event are defined to be the ratio of the probability 
-                                                                    that the event will not ccur to the probability that the event will occur. An integer is to 
-                                                                    be selected at random from the set of integers from k to n, where k &lt; n. <br />The odds against 
-                                                                    the event that the integer selected will be an even integer are 1 to 0.95. Which of the following 
-                                                                    could be the integers k and n, respectively?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">13 and 33<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">14 and 33<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">15 and 33<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">16 and 55<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-correct" class="choice-correct">17 and 55<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>After a bird feeder was filled with x pounds of birdseed, 12 ounces of birdseed were consumed each day 
-                                                                    for the next 8 days.(1 pound = 16 ounces) <br />Ouantity A: At the endof the 8 days, the weight of the 
-                                                                    birdseed in the bird feeder that was not consumed. <br />Ouantity B: x-5 pounds</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">A &gt; B<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-wrong" class="choice-wrong">A = B<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-correct" class="choice-correct">A &lt; B<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Could not judge<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>You're on a first date and things are going really well. A the end of dinner, 
-                                                                    your waiter hands you the check. After reviewing your tab, you realize the appetizer 
-                                                                    you ordered wasn't included on your bill. What do you do?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-1" class="choice-1">Ignore the waiter's oversight and tip based on the total listed on the bill<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-2" class="choice-2">Don't say anything but leave a larger tip than you normally would.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-3" class="choice-3">Use the money you saved on the appetizer to take your date out for ice cream.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Bring the oversight to your waiter's attention<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>At the end of an important meeting your boss turns to you and compliments the 
-                                                                    suggestion you had for streamlining the reporting process. The idea actually came 
-                                                                    from a coworker who shared it with you over lunch last week. What would you do?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-1" class="choice-1">Say thank you and leave it at that.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-2" class="choice-2">Explain that you appreciate her compliment but must admit that you had some help from your coworker.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-3" class="choice-3">Shrug it off confidently saying, “There's plenty more where that came from.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Tell her that you can't take credit because it was your coworker's idea, 
-                                                            but you agree it's a great one, which is why you brought it up in the meeting.<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>On your commute into work you notice the woman in the car driving in front of you putting on her makeup as she 
-                                                                    drives. Several minutes later she knocks the side mirror off of a parked car and keeps going. What do you do?"</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-1" class="choice-1">Get the license plate number of the car in front of you and pull over to leave a note for the owner of the damaged parked car.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-2" class="choice-2">Take a video of the car in front of you, narrating what just happened and post it to YouTube with the hope that the owner of the damaged car will see it.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-3" class="choice-3">Pretend you didn't see anything and continue on your route to work.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Get the license plate number of the car in front of you and call the non-emergency police number to report the accident.<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>It's lunchtime, so you head to the office kitchen to heat up your food. While you're waiting on the microwave, you 
-                                                                    notice an open file folder sitting on the table with what looks like a list of employees and their salaries hanging 
-                                                                    out of it. No one else is in the room, so you have no idea who the folder belongs to. What do you do?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-1" class="choice-1">Ignore the open folder and go about your business.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-2" class="choice-2">After briefly looking at the contents of the folder (just to make sure you're being paid competitively) you take it to the HR Director for her to handle.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-3" class="choice-3">Take the folder with you and send out a company-wide email asking the person who left a file folder in the third-floor kitchen to come see you to pick it up.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Without reading the visible pages, close the folder and wait. When its owner shows up, explain that you closed the open folder as soon as you saw what it was but didn't want to leave  such sensitive information unattended.<br>
-                    </form>
-                </div>
-            </div>
-
-            <div id='question-square' class='question-square'>
-                <div id='question-content' class='question-content'>You've been craving a soda all day. After digging through your desk for change, you head down to the vending 
-                                                                    machine to get your mid-afternoon sugar fix. You insert the correct change, push the button and two sodas come 
-                                                                    rolling down the shoot. What do you do?</div>
-                <div id="choice-buttons-area" class="choice-buttons-area">
-                    <form>
-                        <input type="radio" name="text" value="age-level-1" id="choice-1" class="choice-1">Call the number on the vending machine to report the mistake and take the extra soda can to the receptionist, 
-                                                            so she can return it to the vending company when they show up to fix the issue.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-2" class="choice-2">Take the two sodas back to your office and smile at your good fortune.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-3" class="choice-3">Give the extra soda to your coworker who was complaining just the other day that that same machine had taken her money and not given her a soda.<br>
-                        <input type="radio" name="text" value="age-level-1" id="choice-4" class="choice-4">Give the extra soda to that same coworker, but tell her that you bought it specifically for her.<br>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+        <div id='interactive-area' class ='interactive-area'>
         
-    </div>
+            <div id="basic-info-area" class="basic-info-area">
+                <div class="user-name-info">
+                    <div id='question-content' class='question-content'>Your nickname (what Silicon Coppélia should call you)</div>
+                    <input placeholder="Typing here..." required="required" id="user-name-input" class="user-name-input" name="user-name-input"> 
+                </div>
+                <br>
+                <div class="user-age-info">
+                    <div id='question-content' class='question-content'>Your approximate age range</div>
+                    <div id="age-choices-area" class="age-choices-area">
+                        <!-- <form id="choices"> -->
+                            <input type="radio" name="user-age" value="age-level-1">0 - 13<br>
+                            <input type="radio" name="user-age" value="age-level-2">14 - 20<br>
+                            <input type="radio" name="user-age" value="age-level-3">21 - 30<br>
+                            <input type="radio" name="user-age" value="age-level-4">31 - 55<br>
+                            <input type="radio" name="user-age" value="age-level-5">> 55<br>
+                        <!-- </form> -->
+                        
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="question-choice-area" class="question-choice-area">
 
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>Sand is to beach as ____ is to road</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q1" value="age-level-1" id="choice-wrong" class="choice-wrong">paint<br>
+                            <input type="radio" name="aff-q1" value="age-level-1" id="choice-correct" class="choice-correct">asphalt<br>
+                            <input type="radio" name="aff-q1" value="age-level-1" id="choice-wrong" class="choice-wrong">signs<br>
+                            <input type="radio" name="aff-q1" value="age-level-1" id="choice-wrong" class="choice-wrong">cars<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>Which word does not belong?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Optometrist<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Dentist<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-correct" class="choice-correct">Optician<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Orthodontist<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>Four peoples are to be seated in four adjacent chairs aranged in a row. If two of them are to be seated to each other, how many different seating arrangements are possible?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q3" value="age-level-1" id="choice-wrong" class="choice-wrong">6<br>
+                            <input type="radio" name="aff-q3" value="age-level-1" id="choice-wrong" class="choice-wrong">8<br>
+                            <input type="radio" name="aff-q3" value="age-level-1" id="choice-correct" class="choice-correct">12<br>
+                            <input type="radio" name="aff-q3" value="age-level-1" id="choice-wrong" class="choice-wrong">16<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>The odds against the occurrence of an event are defined to be the ratio of the probability 
+                                                                        that the event will not ccur to the probability that the event will occur. An integer is to 
+                                                                        be selected at random from the set of integers from k to n, where k &lt; n. <br />The odds against 
+                                                                        the event that the integer selected will be an even integer are 1 to 0.95. Which of the following 
+                                                                        could be the integers k and n, respectively?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q4" value="age-level-1" id="choice-wrong" class="choice-wrong">13 and 33<br>
+                            <input type="radio" name="aff-q4" value="age-level-1" id="choice-wrong" class="choice-wrong">14 and 33<br>
+                            <input type="radio" name="aff-q4" value="age-level-1" id="choice-wrong" class="choice-wrong">15 and 33<br>
+                            <input type="radio" name="aff-q4" value="age-level-1" id="choice-wrong" class="choice-wrong">16 and 55<br>
+                            <input type="radio" name="aff-q4" value="age-level-1" id="choice-correct" class="choice-correct">17 and 55<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>After a bird feeder was filled with x pounds of birdseed, 12 ounces of birdseed were consumed each day 
+                                                                        for the next 8 days.(1 pound = 16 ounces) <br />Ouantity A: At the endof the 8 days, the weight of the 
+                                                                        birdseed in the bird feeder that was not consumed. <br />Ouantity B: x-5 pounds</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">A &gt; B<br>
+                            <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">A = B<br>
+                            <input type="radio" name="aff-q5" value="age-level-1" id="choice-correct" class="choice-correct">A &lt; B<br>
+                            <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">Could not judge<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>You're on a first date and things are going really well. A the end of dinner, 
+                                                                        your waiter hands you the check. After reviewing your tab, you realize the appetizer 
+                                                                        you ordered wasn't included on your bill. What do you do?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="eth-q1" value="3" id="choice-1" class="choice-1">Ignore the waiter's oversight and tip based on the total listed on the bill<br>
+                            <input type="radio" name="eth-q1" value="2" id="choice-2" class="choice-2">Don't say anything but leave a larger tip than you normally would.<br>
+                            <input type="radio" name="eth-q1" value="4" id="choice-3" class="choice-3">Use the money you saved on the appetizer to take your date out for ice cream.<br>
+                            <input type="radio" name="eth-q1" value="1" id="choice-4" class="choice-4">Bring the oversight to your waiter's attention<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>At the end of an important meeting your boss turns to you and compliments the 
+                                                                        suggestion you had for streamlining the reporting process. The idea actually came 
+                                                                        from a coworker who shared it with you over lunch last week. What would you do?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="eth-q2" value="1" id="choice-1" class="choice-1">Say thank you and leave it at that.<br>
+                            <input type="radio" name="eth-q2" value="4" id="choice-2" class="choice-2">Explain that you appreciate her compliment but must admit that you had some help from your coworker.<br>
+                            <input type="radio" name="eth-q2" value="3" id="choice-3" class="choice-3">Shrug it off confidently saying, “There's plenty more where that came from.<br>
+                            <input type="radio" name="eth-q2" value="2" id="choice-4" class="choice-4">Tell her that you can't take credit because it was your coworker's idea, 
+                                                                but you agree it's a great one, which is why you brought it up in the meeting.<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>On your commute into work you notice the woman in the car driving in front of you putting on her makeup as she 
+                                                                        drives. Several minutes later she knocks the side mirror off of a parked car and keeps going. What do you do?"</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="eth-q3" value="3" id="choice-1" class="choice-1">Get the license plate number of the car in front of you and pull over to leave a note for the owner of the damaged parked car.<br>
+                            <input type="radio" name="eth-q3" value="4" id="choice-2" class="choice-2">Take a video of the car in front of you, narrating what just happened and post it to YouTube with the hope that the owner of the damaged car will see it.<br>
+                            <input type="radio" name="eth-q3" value="2" id="choice-3" class="choice-3">Pretend you didn't see anything and continue on your route to work.<br>
+                            <input type="radio" name="eth-q3" value="1" id="choice-4" class="choice-4">Get the license plate number of the car in front of you and call the non-emergency police number to report the accident.<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>It's lunchtime, so you head to the office kitchen to heat up your food. While you're waiting on the microwave, you 
+                                                                        notice an open file folder sitting on the table with what looks like a list of employees and their salaries hanging 
+                                                                        out of it. No one else is in the room, so you have no idea who the folder belongs to. What do you do?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="eth-q4" value="4" id="choice-1" class="choice-1">Ignore the open folder and go about your business.<br>
+                            <input type="radio" name="eth-q4" value="1" id="choice-2" class="choice-2">After briefly looking at the contents of the folder (just to make sure you're being paid competitively) you take it to the HR Director for her to handle.<br>
+                            <input type="radio" name="eth-q4" value="3" id="choice-3" class="choice-3">Take the folder with you and send out a company-wide email asking the person who left a file folder in the third-floor kitchen to come see you to pick it up.<br>
+                            <input type="radio" name="eth-q4" value="2" id="choice-4" class="choice-4">Without reading the visible pages, close the folder and wait. When its owner shows up, explain that you closed the open folder as soon as you saw what it was but didn't want to leave  such sensitive information unattended.<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>You've been craving a soda all day. After digging through your desk for change, you head down to the vending 
+                                                                        machine to get your mid-afternoon sugar fix. You insert the correct change, push the button and two sodas come 
+                                                                        rolling down the shoot. What do you do?</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="ethic-q5" value="2" id="choice-1" class="choice-1">Call the number on the vending machine to report the mistake and take the extra soda can to the receptionist, 
+                                                                  so she can return it to the vending company when they show up to fix the issue.<br>
+                            <input type="radio" name="ethic-q5" value="4" id="choice-2" class="choice-2">Take the two sodas back to your office and smile at your good fortune.<br>
+                            <input type="radio" name="ethic-q5" value="1" id="choice-3" class="choice-3">Give the extra soda to your coworker who was complaining just the other day that that same machine had taken her money and not given her a soda.<br>
+                            <input type="radio" name="ethic-q5" value="3" id="choice-4" class="choice-4">Give the extra soda to that same coworker, but tell her that you bought it specifically for her.<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+
+            </div>
+           
+        </div>
+    </form> 
 </body>
 
 </html>

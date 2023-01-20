@@ -160,10 +160,11 @@ input{
     font-weight: bold;
     color:#000000;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
 .choice-buttons-area{
-    top: 10px;
+    top: 0px;
     height:fit-content;
     position: relative;
     color:#2f2f2f;
@@ -171,56 +172,4 @@ input{
 }
 .choice-buttons-area li{
     min-height: 23px;
-}
-
-
-/* ------------------------- choice bubbles */
-
-.choice-area{
-position: inherit;
-top:6px;
-width:fit-content;
-max-width: 60vw;
-height:fit-content;
-/* background-color:#b7b7b7;
-border:1px solid #797979; */
-}
-.choice-bubble{
-background-color: #b7b7b7;
-border:#b7b7b7 solid;
-width:fit-content;
-max-width: 100px;
-height:fit-content;
-top:2px;
-left:0.2px;
-right: 0.2px;
-position:inherit;
-border-radius: 10px;
-text-align: center;
-margin: 2px 0px;
-font-size: 14px;
-font-family: "Gill Sans", sans-serif;
-color:#000000;
-}
-
-.choice-bubble p{
-    text-align: center;
-    margin: 2px;
-    font-size: 14px;
-    font-family: "Gill Sans", sans-serif;
-    color:#000000;
-}
-
-.choice-bubble:hover{
-    background-color: #cfcfcf;
-    border:#cfcfcf solid;
-}
-.choice-bubble:active, .choice-bubble:focus{
-    background-color: #00BA61;
-    border: #01b15c solid;
-}
-
-
-.choice-bubble:active, .choice-bubble:focus p{
-    color: #ffffff;
 }
