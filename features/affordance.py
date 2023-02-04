@@ -1,6 +1,7 @@
+import json
 import random
 import enum
-from abs import ABCMeta, abstractmethod
+from abcmeta import ABC, abstractmethod
 import numpy as np
 
 import sys
@@ -13,7 +14,25 @@ from dimensions.Distance import *
 from dimensions.Similarity import *
 from dimensions.Dissimilarity import *
 
+
 class Question:
+    """
+    be aware that class Question would not been comment out temporally,
+    consider potential existed data and weight pre-processing requirement, class Question would be
+    keep for further structure establishing
+    """
+    def __init__(self):
+        """initiating the class in html"""
+        ...
+    path: str=r""
+
+    def read_js(self):
+        with open(self.path, "r") as file:
+            json.dump(file, indent=4)
+
+    def get_question_response(self) -> dict:
+        ...
+
     Physics: str = "Are you good at badminton?"
     Mental: str = "lets play a mind teaser! shall we?"
     Reality: str = "A old woman need help because she lost her way, will you help her?"
@@ -49,15 +68,15 @@ class Affordance_Counterpart(Question):
     @abstractmethod
     def Device_working(self): pass
 
-    def Device_camera(self):
+    def Device_camera(self):  # no need focus on
         res = self.Device_working()
         if type(res) is bool: return res
         raise Exception("Cant identify camera working situation...")
 
-    def physics_judge(self):
+    def physics_judge(self):  #
         self.Device_camera()
         if self.respon_platform[self.Physics][0]:
-            if not self.Device: self.respon_platform[self.Physics][1] = self.STABLE
+            if not self.Device: self.respon_platform[self.Physics][1] = [self.STABLE, self.STABLE]
             self.respon_platform[self.Physics][1] = [random.uniform(0.3, 0.7), random.uniform(0, 0.3)]
         else: self.respon_platform[self.Physics][1] = [random.uniform(0.0, 0.3), random.uniform(0.3, 0.7)]
 
@@ -68,16 +87,21 @@ class Affordance_Counterpart(Question):
 
     # I'm going to use this function to adjust the feature weight computed from
     # return_value(), since two float multiply could only lead to smaller value
-    def reality_judge(self):
+    def intelligent_judge(self):  # IQ
         pass
 
+    # Jehan work, will invoke function from CoppeliaProfile.py
+    def get_feature_weight(self):
+        ...
+
+    # designed for adjusting the weight of features
     def feature_enlarge(self, result: list) -> list:
         pass
 
     def divide_judgement(self):
         self.physics_judge()
         self.mental_judge()
-        self.reality_judge()
+        self.intelligent_judge()
 
     def return_value(self):
         physics, mental = np.array(self.respon_platform[self.Physics][1]), np.array(self.respon_platform[self.Mental][1]).T
@@ -85,7 +109,11 @@ class Affordance_Counterpart(Question):
         result = self.feature_enlarge(result)
         return {"affneg": result[0], "affpos": result[1]}
 
-
+    def response(self):
+        """
+        this function built to return the reason and value effect judgement of Collepia
+        """
+        ...
 
 # class Affordance:
 #     """
