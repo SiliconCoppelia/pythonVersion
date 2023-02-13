@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silicon Coppélia</title>
-    <link rel="stylesheet" href="qa_ui.css">
+    <link rel="stylesheet" href="../static/qa_ui.css">
 	<script src="https://kit.fontawesome.com/6af1e368ac.js" crossorigin="anonymous"></script>
     <script src="./qa.js" crossorigin="anonymous"></script>
 </head>
@@ -14,9 +14,9 @@
             <div id='navigationbar-title-content' class='navigationbar-title-content'>Silicon Coppélia</div>
         </div>
     </div>
-    <form id="choices" action="/action_page.php"></form>
+    <form id="choices" action=""></form>
         <div id='bottombar' class='bottombar'>
-            <input type="submit" value="submit" class="bottombar-actions-submit" onclick="user_send_msg()">
+            <input type="submit" value="submit" class="bottombar-actions-submit">
                 <!-- <span style="color: white;">Submit</span> -->
             </input>
         </div>
@@ -26,6 +26,17 @@
                 <div class="user-name-info">
                     <div id='question-content' class='question-content'>Your nickname (what Silicon Coppélia should call you)</div>
                     <input placeholder="Typing here..." required="required" id="user-name-input" class="user-name-input" name="user-name-input"> 
+                </div>
+                <br>
+                <div class="user-gender-info">
+                    <div id='question-content' class='question-content'>Your gender</div>
+                    <div id="gender-choices-area" class="gender-choices-area">
+                        <!-- <form id="choices"> -->
+                            <input type="radio" name="user-age" value="age-level-1">F<br>
+                            <input type="radio" name="user-age" value="age-level-2">M<br>
+                        <!-- </form> -->
+                        
+                    </div>
                 </div>
                 <br>
                 <div class="user-age-info">
@@ -46,7 +57,31 @@
             <div id="question-choice-area" class="question-choice-area">
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>Sand is to beach as ____ is to road</div>
+                    <div id='question-content' class='question-content'>(aff-physic)<br>You are disabled</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">T<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">F<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>(aff-mental)<br>You've been losing sleep for the last month</div>
+                    <div id="choice-buttons-area" class="choice-buttons-area">
+                        <!-- <form> -->
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Never<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Sometimes(3-9 times)<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-correct" class="choice-correct">Often(10-20 times)<br>
+                            <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Almost everyday<br>
+                        <!-- </form> -->
+                    </div>
+                </div>
+                <br>
+
+                <div id='question-square' class='question-square'>
+                    <div id='question-content' class='question-content'>(aff-intelligent-semantic analysis)<br>Sand is to beach as ____ is to road</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
                         <!-- <form> -->
                             <input type="radio" name="aff-q1" value="age-level-1" id="choice-wrong" class="choice-wrong">paint<br>
@@ -58,21 +93,21 @@
                 </div>
                 <br>
 
-                <div id='question-square' class='question-square'>
+                <!-- <div id='question-square' class='question-square'>
                     <div id='question-content' class='question-content'>Which word does not belong?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
-                        <!-- <form> -->
+                        
                             <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Optometrist<br>
                             <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Dentist<br>
                             <input type="radio" name="aff-q2" value="age-level-1" id="choice-correct" class="choice-correct">Optician<br>
                             <input type="radio" name="aff-q2" value="age-level-1" id="choice-wrong" class="choice-wrong">Orthodontist<br>
-                        <!-- </form> -->
+                        
                     </div>
                 </div>
-                <br>
+                <br> -->
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>Four peoples are to be seated in four adjacent chairs aranged in a row. If two of them are to be seated to each other, how many different seating arrangements are possible?</div>
+                    <div id='question-content' class='question-content'>(aff-intelligent-logical thinking)<br> Four peoples are to be seated in four adjacent chairs aranged in a row. If two of them are to be seated to each other, how many different seating arrangements are possible?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
                         <!-- <form> -->
                             <input type="radio" name="aff-q3" value="age-level-1" id="choice-wrong" class="choice-wrong">6<br>
@@ -85,7 +120,7 @@
                 <br>
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>The odds against the occurrence of an event are defined to be the ratio of the probability 
+                    <div id='question-content' class='question-content'>(aff-intelligent-logical thinking)<br>The odds against the occurrence of an event are defined to be the ratio of the probability 
                                                                         that the event will not ccur to the probability that the event will occur. An integer is to 
                                                                         be selected at random from the set of integers from k to n, where k &lt; n. <br />The odds against 
                                                                         the event that the integer selected will be an even integer are 1 to 0.95. Which of the following 
@@ -102,23 +137,21 @@
                 </div>
                 <br>
 
-                <div id='question-square' class='question-square'>
+                <!-- <div id='question-square' class='question-square'>
                     <div id='question-content' class='question-content'>After a bird feeder was filled with x pounds of birdseed, 12 ounces of birdseed were consumed each day 
                                                                         for the next 8 days.(1 pound = 16 ounces) <br />Ouantity A: At the endof the 8 days, the weight of the 
                                                                         birdseed in the bird feeder that was not consumed. <br />Ouantity B: x-5 pounds</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
-                        <!-- <form> -->
                             <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">A &gt; B<br>
                             <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">A = B<br>
                             <input type="radio" name="aff-q5" value="age-level-1" id="choice-correct" class="choice-correct">A &lt; B<br>
                             <input type="radio" name="aff-q5" value="age-level-1" id="choice-wrong" class="choice-wrong">Could not judge<br>
-                        <!-- </form> -->
                     </div>
                 </div>
-                <br>
+                <br> -->
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>You're on a first date and things are going really well. A the end of dinner, 
+                    <div id='question-content' class='question-content'>(eth)<br>You're on a first date and things are going really well. A the end of dinner, 
                                                                         your waiter hands you the check. After reviewing your tab, you realize the appetizer 
                                                                         you ordered wasn't included on your bill. What do you do?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
@@ -133,7 +166,7 @@
                 <br>
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>At the end of an important meeting your boss turns to you and compliments the 
+                    <div id='question-content' class='question-content'>(eth)<br>At the end of an important meeting your boss turns to you and compliments the 
                                                                         suggestion you had for streamlining the reporting process. The idea actually came 
                                                                         from a coworker who shared it with you over lunch last week. What would you do?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
@@ -149,7 +182,7 @@
                 <br>
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>On your commute into work you notice the woman in the car driving in front of you putting on her makeup as she 
+                    <div id='question-content' class='question-content'>(eth)<br>On your commute into work you notice the woman in the car driving in front of you putting on her makeup as she 
                                                                         drives. Several minutes later she knocks the side mirror off of a parked car and keeps going. What do you do?"</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
                         <!-- <form> -->
@@ -163,7 +196,7 @@
                 <br>
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>It's lunchtime, so you head to the office kitchen to heat up your food. While you're waiting on the microwave, you 
+                    <div id='question-content' class='question-content'>(eth)<br>It's lunchtime, so you head to the office kitchen to heat up your food. While you're waiting on the microwave, you 
                                                                         notice an open file folder sitting on the table with what looks like a list of employees and their salaries hanging 
                                                                         out of it. No one else is in the room, so you have no idea who the folder belongs to. What do you do?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
@@ -178,7 +211,7 @@
                 <br>
 
                 <div id='question-square' class='question-square'>
-                    <div id='question-content' class='question-content'>You've been craving a soda all day. After digging through your desk for change, you head down to the vending 
+                    <div id='question-content' class='question-content'>(eth)<br>You've been craving a soda all day. After digging through your desk for change, you head down to the vending 
                                                                         machine to get your mid-afternoon sugar fix. You insert the correct change, push the button and two sodas come 
                                                                         rolling down the shoot. What do you do?</div>
                     <div id="choice-buttons-area" class="choice-buttons-area">
@@ -195,7 +228,44 @@
             </div>
            
         </div>
+        <py-script>
+            
+        </py-script>
     </form> 
+    <!-- <script type="text/javascript">
+        $(function(){
+            function formToJSON(form){
+                var result={}
+                var fieldArray=$('#'+form).serializeArray();
+                for(var i=0; i<fieldArray.length; i++){
+                  var field = fieldArray[i];
+                  if(field.name in result){
+                    result[field.name]+=','+field.value;
+                  } else{
+                    result[field.name]=field.value;
+                  }
+                }
+                return result;
+            }
+    
+            $("#sub").click(function(){
+                var postData=formToJSON("user");
+                console.log(postData);
+                var url=$("#project").val() + "/validate/demo2";
+                $.ajax({
+                    type:"post",
+                    url: uel,
+                    data:postData,
+                    async:false,
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data)
+                    }
+                });      
+            });
+        })
+    </script> -->
 </body>
+
 
 </html>
