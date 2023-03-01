@@ -7,6 +7,29 @@
 from random import random
 from random import randrange
 
+class Relevance_Counterpart:
+
+    def __init__(self):
+        ...
+
+    def extract_largest(self, mu1: set, mu2: set):
+        """
+        code this for fun
+        """
+        container=[_ for _ in range(0, 100)]
+
+
+    def MI_or(self, mu1: set, mu2: set):
+        """
+        mamdani_implication, it is believed the contrast method need to overwrite
+        """
+        return max(mu1, mu2)
+
+    def MI_and(self, mu1:set, mu2: set):
+        return min(mu1, mu2)
+
+
+
 class Relevance:
 
     relevance = 0

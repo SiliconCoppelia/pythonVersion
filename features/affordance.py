@@ -60,6 +60,10 @@ class Affordance_Counterpart(Question):
 
     respon_platform: dict = {}
 
+    # Jehan work, will invoke function from CoppeliaProfile.py
+    def get_feature_weight(self):
+        ...
+
     def response(self):
         self.respon_platform[self.Physics] = (self.ask_question(self.Physics), )
         self.respon_platform[self.Mental] = (self.ask_question(self.Mental), )
@@ -89,10 +93,6 @@ class Affordance_Counterpart(Question):
     # return_value(), since two float multiply could only lead to smaller value
     def intelligent_judge(self):  # IQ
         pass
-
-    # Jehan work, will invoke function from CoppeliaProfile.py
-    def get_feature_weight(self):
-        ...
 
     # designed for adjusting the weight of features
     def feature_enlarge(self, result: list) -> list:
