@@ -20,7 +20,7 @@ from tkinter import *
 import sys
 sys.path.append('./features')
 from ethics import *
-from affordance import *
+# from affordance import *
 
 
 Greet = "Hi there, before we get started, allow me to know you more by asking you some questions."
@@ -66,7 +66,7 @@ class GUIForQuestionsAndCV():
 class Coppelia():
 
 	ethics = Ethics()
-	affordance = Affordance()
+	# affordance = Affordance()
 
 	goal = "I want to be friends with you"
 
@@ -75,45 +75,35 @@ class Coppelia():
 
 	def setGoal(self):
 		self.ethics.setGoal(self.goal)
-		self.affordance.setGoal(self.goal)
+		# self.affordance.setGoal(self.goal)
 
 	def coppeliaSpeaksEthics(self, posOrNeg):
 		self.ethics.coppeliaSpeaksEthics(posOrNeg)
 
-	def setAffordance(self, score):
-		self.affordance.setAffordance(score)
+	# def setAffordance(self, score):
+	# 	self.affordance.setAffordance(score)
 
-	def coppeliaSpeaksAffordance(self, posOrNeg):
-		self.affordance.coppeliaSpeaksAffordance(posOrNeg)
+	# def coppeliaSpeaksAffordance(self, posOrNeg):
+	# 	self.affordance.coppeliaSpeaksAffordance(posOrNeg)
 
 	# Reference of random fractions between two values: 
 	# https://stackoverflow.com/questions/6088077/how-to-get-a-random-number-between-a-float-range
 
 
-GUIWindow = GUIForQuestionsAndCV()
-GUIWindow.windowSettings()
+# GUIWindow = GUIForQuestionsAndCV()
+# GUIWindow.windowSettings()
 # GUIWindow.mainLoop()
 
 coppelia = Coppelia()
 coppelia.setGoal()
 
-# coppelia.setEthics(rand.uniform(0, 1))
-# coppelia.coppeliaSpeaksEthics("positive")
-# coppelia.coppeliaSpeaksEthics("negative")
+coppelia.setEthics(rand.uniform(0, 1))
+coppelia.coppeliaSpeaksEthics("positive")
+coppelia.coppeliaSpeaksEthics("negative")
 
 # coppelia.setAffordance(rand.uniform(0, 1))
 # coppelia.coppeliaSpeaksAffordance("positive")
 # coppelia.coppeliaSpeaksAffordance("negative")
-
-
-while True:
-	GUIWindow.mainLoop()
-
-	coppelia.setEthics(rand.uniform(0, 1))
-	coppelia.coppeliaSpeaksEthics(input())
-
-	coppelia.setAffordance(rand.uniform(0, 1))
-	coppelia.coppeliaSpeaksAffordance(input())
 
 
 
